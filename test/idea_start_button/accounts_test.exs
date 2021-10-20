@@ -6,6 +6,17 @@ defmodule IdeaStartButton.AccountsTest do
   import IdeaStartButton.AccountsFixtures
   alias IdeaStartButton.Accounts.{User, UserToken}
 
+  describe "get_user_by_name/1" do
+    test "does not return the user if the name does not exist" do
+      refute Accounts.get_user_by_name("unknown@example.com")
+    end
+
+    test "returns the user if the name exists" do
+      %{id: id} = user = user_fixture()
+      assert %User{id: ^id} = Accounts.get_user_by_name(user.name)
+    end
+  end
+
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do
       refute Accounts.get_user_by_email("unknown@example.com")
@@ -97,17 +108,17 @@ defmodule IdeaStartButton.AccountsTest do
   describe "change_user_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
-      assert changeset.required == [:password, :email]
+      assert changeset.required == [:password, :email, :name]
     end
 
     test "allows fields to be set" do
-      email = unique_user_email()
+      {name, email} = unique_user_name_and_email()
       password = valid_user_password()
 
       changeset =
         Accounts.change_user_registration(
           %User{},
-          valid_user_attributes(email: email, password: password)
+          valid_user_attributes(name: name, email: email, password: password)
         )
 
       assert changeset.valid?

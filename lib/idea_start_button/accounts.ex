@@ -11,6 +11,22 @@ defmodule IdeaStartButton.Accounts do
   ## Database getters
 
   @doc """
+  Gets a user by name.
+
+  ## Examples
+
+      iex> get_user_by_name("foo@example.com")
+      %User{}
+
+      iex> get_user_by_email("unknown@example.com")
+      nil
+
+  """
+  def get_user_by_name(name) when is_binary(name) do
+    Repo.get_by(User, name: name)
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples

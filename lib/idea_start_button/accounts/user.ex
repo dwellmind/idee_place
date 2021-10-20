@@ -3,6 +3,7 @@ defmodule IdeaStartButton.Accounts.User do
   import Ecto.Changeset
 
   schema "users" do
+    field :name, :string
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
@@ -30,9 +31,19 @@ defmodule IdeaStartButton.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:name, :email, :password])
+    |> validate_name()
     |> validate_email()
     |> validate_password(opts)
+  end
+
+  defp validate_name(changeset) do
+    changeset
+    |> validate_required([:name])
+    |> validate_format(:name, ~r/^[^\s]*/, message: "must have no spaces")
+    |> validate_length(:name, min: 3, max: 40, message: "must be between 3 and 40 characters")
+    |> unsafe_validate_unique(:name, IdeaStartButton.Repo)
+    |> unique_constraint(:name)
   end
 
   defp validate_email(changeset) do

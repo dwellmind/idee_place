@@ -14,11 +14,13 @@ alias IdeaStartButton.Repo
 alias IdeaStartButton.Accounts
 
 Repo.insert!(%Accounts.User{
+  name: "Alice",
   email: "alice@mail.net",
   hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam" # "password"
 })
 
 Repo.insert!(%Accounts.User{
+  name: "Bob",
   email: "bob@mail.net",
   hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2" # "password"
 })

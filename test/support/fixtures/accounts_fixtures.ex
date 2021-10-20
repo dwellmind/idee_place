@@ -4,12 +4,21 @@ defmodule IdeaStartButton.AccountsFixtures do
   entities via the `IdeaStartButton.Accounts` context.
   """
 
+  def unique_user_name_and_email do
+    uuid = System.unique_integer()
+    {"user#{uuid}", "user#{uuid}@example.com"}
+  end
+
+  def unique_user_name, do: "user#{System.unique_integer()}"
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "password"
 
   def valid_user_attributes(attrs \\ %{}) do
+    {name, email} = unique_user_name_and_email()
+
     Enum.into(attrs, %{
-      email: unique_user_email(),
+      name: name,
+      email: email,
       password: valid_user_password()
     })
   end
