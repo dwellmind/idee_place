@@ -88,6 +88,7 @@ defmodule IdeaStartButtonWeb do
       import Phoenix.View
 
       import IdeaStartButtonWeb.ErrorHelpers
+      import IdeaStartButtonWeb.UserHelpers
       import IdeaStartButtonWeb.Gettext
       alias IdeaStartButtonWeb.Router.Helpers, as: Routes
     end

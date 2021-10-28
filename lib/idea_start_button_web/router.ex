@@ -88,4 +88,18 @@ defmodule IdeaStartButtonWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
   end
+
+  # Idea routes
+
+  scope "/", IdeaStartButtonWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/ideas", IdeaController, except: [:index, :show]
+  end
+
+  scope "/", IdeaStartButtonWeb do
+    pipe_through [:browser]
+
+    resources "/ideas", IdeaController, only: [:index, :show]
+  end
 end

@@ -1,0 +1,34 @@
+<h1>Listing Ideas</h1>
+
+<%= if @conn.assigns.current_user do %>
+<span><%= link "New Idea", to: Routes.idea_path(@conn, :new) %></span>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Author</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for idea <- @ideas do %>
+    <tr>
+      <td><%= idea.title %></td>
+      <td><%= idea.description %></td>
+      <td><%= idea.author.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.idea_path(@conn, :show, idea) %></span>
+        <%= if idea.author == @current_user do %>
+          <span><%= link "Edit", to: Routes.idea_path(@conn, :edit, idea) %></span>
+          <span><%= link "Delete", to: Routes.idea_path(@conn, :delete, idea), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

@@ -1,0 +1,20 @@
+<h1>Show Idea</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @idea.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @idea.description %>
+  </li>
+
+</ul>
+
+<%= if is_current_user(@conn, @idea.author) do %>
+  <span><%= link "Edit", to: Routes.idea_path(@conn, :edit, @idea) %></span> |
+<% end %>
+<span><%= link "Back", to: Routes.idea_path(@conn, :index) %></span>
