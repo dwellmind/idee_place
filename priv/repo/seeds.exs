@@ -16,16 +16,8 @@ alias IdeaStartButton.{
   Ideas
 }
 
-alice = Repo.insert!(%Accounts.User{
-  name: "Alice",
-  email: "alice@mail.net",
-  hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam" # "password"
-})
-
-bob = Repo.insert!(%Accounts.User{
-  name: "Bob",
-  email: "bob@mail.net",
-  hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2" # "password"
+crazy_topic = Repo.insert!(%Ideas.Topic{
+  name: "crazy"
 })
 
 computing_topic = Repo.insert!(%Ideas.Topic{
@@ -40,11 +32,25 @@ survival_topic = Repo.insert!(%Ideas.Topic{
   name: "survival"
 })
 
+alice = Repo.insert!(%Accounts.User{
+  name: "Alice",
+  email: "alice@mail.net",
+  hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam", # "password"
+  interests: [computing_topic, elixir_topic]
+})
+
+_bob = Repo.insert!(%Accounts.User{
+  name: "Bob",
+  email: "bob@mail.net",
+  hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2", # "password"
+  interests: [computing_topic, crazy_topic]
+})
+
 Repo.insert!(%Ideas.Idea{
   title: "Create a new world",
   description: "The goal is to create a new world without bad humans.",
   author: alice,
-  topics: [survival_topic]
+  topics: [crazy_topic, survival_topic]
 })
 
 Repo.insert!(%Ideas.Idea{

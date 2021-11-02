@@ -6,7 +6,7 @@ defmodule IdeaStartButton.Accounts do
   import Ecto.Query, warn: false
   alias IdeaStartButton.Repo
 
-  alias IdeaStartButton.Accounts.{User, UserToken, UserNotifier}
+  alias IdeaStartButton.Accounts.{User, UserToken, UserNotifier, UserInterest}
 
   ## Database getters
 
@@ -375,5 +375,22 @@ defmodule IdeaStartButton.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+  end
+
+  @doc """
+  Returns the list of interests.
+
+  ## Examples
+
+      iex> list_user_interests(2)
+      [%UserInterest{}, ...]
+
+  """
+  def list_user_interests(user_id) do
+    Repo.all(
+      from user_interest in UserInterest,
+        where: user_interest.user_id == ^user_id,
+        preload: [:topic]
+    )
   end
 end

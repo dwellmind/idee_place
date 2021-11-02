@@ -3,6 +3,8 @@ defmodule IdeaStartButton.Accounts.User do
   import Ecto.Changeset
 
   alias IdeaStartButton.Ideas.Idea
+  alias IdeaStartButton.Ideas.Topic
+  alias IdeaStartButton.Accounts.UserInterest
 
   schema "users" do
     field :name, :string
@@ -11,6 +13,7 @@ defmodule IdeaStartButton.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     has_many :ideas, Idea, foreign_key: :author_id
+    many_to_many :interests, Topic, join_through: UserInterest
 
     timestamps()
   end

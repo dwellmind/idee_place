@@ -7,7 +7,11 @@ defmodule IdeaStartButtonWeb.UserSettingsController do
   plug :assign_email_and_password_changesets
 
   def edit(conn, _params) do
-    render(conn, "edit.html")
+    user_id = conn.assigns.current_user.id
+    user_interests =
+      IdeaStartButton.Accounts.list_user_interests(user_id)
+      |> Enum.map(fn user_interest -> user_interest.topic.name end)
+    render(conn, "edit.html", user_interests: user_interests)
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
