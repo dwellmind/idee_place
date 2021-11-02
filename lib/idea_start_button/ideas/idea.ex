@@ -3,11 +3,14 @@ defmodule IdeaStartButton.Ideas.Idea do
   import Ecto.Changeset
 
   alias IdeaStartButton.Accounts.User
+  alias IdeaStartButton.Ideas.Topic
+  alias IdeaStartButton.Ideas.IdeaTopic
 
   schema "ideas" do
-    field :description, :string
     field :title, :string
+    field :description, :string
     belongs_to :author, User
+    many_to_many :topics, Topic, join_through: IdeaTopic
 
     timestamps()
   end

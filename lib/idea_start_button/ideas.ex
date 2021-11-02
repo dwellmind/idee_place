@@ -7,6 +7,7 @@ defmodule IdeaStartButton.Ideas do
   alias IdeaStartButton.Repo
 
   alias IdeaStartButton.Ideas.Idea
+  alias IdeaStartButton.Ideas.Topic
 
   @doc """
   Returns the list of ideas.
@@ -110,5 +111,109 @@ defmodule IdeaStartButton.Ideas do
   """
   def change_idea(%Idea{} = idea, attrs \\ %{}) do
     Idea.changeset(idea, attrs)
+  end
+
+  @doc """
+  Returns the list of topics.
+
+  ## Examples
+
+      iex> list_topics()
+      [%Topic{}, ...]
+
+  """
+  def list_topics(opts \\ []) do
+    default_opts = [preload: []]
+    opts = Keyword.merge(default_opts, opts)
+    Repo.all from Topic,
+      preload: ^opts[:preload]
+  end
+
+  @doc """
+  Gets a single topic.
+
+  Raises `Ecto.NoResultsError` if the Topic does not exist.
+
+  ## Examples
+
+      iex> get_topic!(123)
+      %Idea{}
+
+      iex> get_topic!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_topic!(id, opts \\ []) do
+    default_opts = [preload: []]
+    opts = Keyword.merge(default_opts, opts)
+
+    Repo.one! from topic in Topic,
+      where: topic.id == ^id,
+      preload: ^opts[:preload]
+  end
+
+  @doc """
+  Creates a topic.
+
+  ## Examples
+
+      iex> create_topic(%{field: value})
+      {:ok, %Topic{}}
+
+      iex> create_topic(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_topic(attrs \\ %{}) do
+    %Topic{}
+    |> Topic.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a topic.
+
+  ## Examples
+
+      iex> update_topic(idea, %{field: new_value})
+      {:ok, %Topic{}}
+
+      iex> update_topic(idea, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_topic(%Topic{} = topic, attrs) do
+    topic
+    |> Topic.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a topic.
+
+  ## Examples
+
+      iex> delete_topic(topic)
+      {:ok, %Topic{}}
+
+      iex> delete_topic(topic)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_topic(%Topic{} = topic) do
+    Repo.delete(topic)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking topic changes.
+
+  ## Examples
+
+      iex> change_topic(topic)
+      %Ecto.Changeset{data: %Topic{}}
+
+  """
+  def change_topic(%Topic{} = topic, attrs \\ %{}) do
+    Topic.changeset(topic, attrs)
   end
 end

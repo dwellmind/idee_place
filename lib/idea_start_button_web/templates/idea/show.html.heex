@@ -2,9 +2,17 @@
 
 <ul>
 
+
   <li>
     <strong>Title:</strong>
     <%= @idea.title %>
+  </li>
+
+  <li>
+    <strong>Topics:</strong>
+    <%= for topic <- @idea.topics do %>
+      <%= topic.name %>
+    <% end %>
   </li>
 
   <li>

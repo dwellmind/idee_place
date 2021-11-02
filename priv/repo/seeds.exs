@@ -28,14 +28,28 @@ bob = Repo.insert!(%Accounts.User{
   hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2" # "password"
 })
 
+computing_topic = Repo.insert!(%Ideas.Topic{
+  name: "computing"
+})
+
+elixir_topic = Repo.insert!(%Ideas.Topic{
+  name: "elixir"
+})
+
+survival_topic = Repo.insert!(%Ideas.Topic{
+  name: "survival"
+})
+
 Repo.insert!(%Ideas.Idea{
   title: "Create a new world",
   description: "The goal is to create a new world without bad humans.",
-  author: alice
+  author: alice,
+  topics: [survival_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
   title: "Thinking about my favorite programming language",
   description: "I should think about… wait a minute. It's Elixir of course!",
-  author: alice
+  author: alice,
+  topics: [computing_topic, elixir_topic]
 })

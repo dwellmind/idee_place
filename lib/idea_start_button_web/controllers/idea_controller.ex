@@ -31,7 +31,7 @@ defmodule IdeaStartButtonWeb.IdeaController do
   end
 
   def show(conn, %{"id" => id}) do
-    idea = Ideas.get_idea!(id, preload: [:author])
+    idea = Ideas.get_idea!(id, preload: [:author, :topics])
     render(conn, "show.html", idea: idea)
   end
 
