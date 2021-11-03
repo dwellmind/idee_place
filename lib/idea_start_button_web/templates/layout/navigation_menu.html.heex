@@ -1,0 +1,63 @@
+<nav class="bg-white shadow-lg" x-data="{ mobileMenuShown: false }">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between">
+      <div class="flex space-x-7">
+        <!-- Primary Navbar items -->
+        <div class="hidden md:flex items-center space-x-1">
+          <%= link "Ideas", to: Routes.idea_path(@conn, :index),
+              class: "px-2 py-4 text-green-500 border-b-4 border-green-500 font-semibold" %>
+        </div>
+      </div>
+      <!-- Secondary Navbar items -->
+      <div class="hidden md:flex items-center space-x-3">
+        <%= if @current_user do %>
+        <%= link "Settings", to: Routes.user_settings_path(@conn, :edit),
+            class: "py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+        <%= link "Log out (#{@current_user.email})", to: Routes.user_session_path(@conn, :delete), method: :delete,
+            class: "py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+        <% else %>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new),
+            class: "py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new),
+            class: "py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300"%>
+        <% end %>
+      </div>
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button class="outline-none mobile-menu-button" @click="mobileMenuShown = !mobileMenuShown">
+          <svg class="w-6 h-6 text-gray-500 hover:text-green-500"
+               fill="none"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               stroke-width="2"
+               viewBox="0 0 24 24"
+               stroke="currentColor"
+               >
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- mobile menu -->
+  <div class="mobile-menu" x-show="mobileMenuShown">
+    <div class="md:hidden flex justify-center space-x-7">
+      <!-- Primary Navbar items -->
+      <div class="md:flex items-center space-x-1">
+        <%= link "Ideas", to: Routes.idea_path(@conn, :index),
+            class: "px-2 py-4 text-center text-green-500 border-b-4 border-green-500 font-semibold" %>
+        <%= if @current_user do %>
+        <%= link "Settings", to: Routes.user_settings_path(@conn, :edit),
+            class: "px-2 py-4 text-center text-gray-500 hover:text-green-500 transition duration-300" %>
+        <%= link "Log out (#{@current_user.email})", to: Routes.user_session_path(@conn, :delete), method: :delete,
+            class: "px-2 py-4 text-center text-gray-500 hover:text-green-500 transition duration-300" %>
+        <% else %>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new),
+            class: "px-2 py-4 text-center text-gray-500 hover:text-green-500 transition duration-300" %>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new),
+            class: "px-2 py-4 text-center text-gray-500 hover:text-green-500 transition duration-300" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

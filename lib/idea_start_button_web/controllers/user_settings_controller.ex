@@ -8,10 +8,7 @@ defmodule IdeaStartButtonWeb.UserSettingsController do
 
   def edit(conn, _params) do
     user_id = conn.assigns.current_user.id
-    user_interests =
-      IdeaStartButton.Accounts.list_user_interests(user_id)
-      |> Enum.map(fn user_interest -> user_interest.topic.name end)
-    render(conn, "edit.html", user_interests: user_interests)
+    render(conn, "edit.html", user_interests: get_user_interests(user_id))
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
@@ -72,7 +69,13 @@ defmodule IdeaStartButtonWeb.UserSettingsController do
     user = conn.assigns.current_user
 
     conn
+    |> assign(:user_interests, ["computing", "elixir"])
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
+  end
+
+  defp get_user_interests(user_id) do
+    IdeaStartButton.Accounts.list_user_interests(user_id)
+    |> Enum.map(fn user_interest -> user_interest.topic.name end)
   end
 end

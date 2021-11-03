@@ -20,7 +20,7 @@ defmodule IdeaStartButtonWeb.Router do
   scope "/", IdeaStartButtonWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", IdeaController, :index
   end
 
   # Other scopes may use custom stacks.
