@@ -19,10 +19,34 @@ defmodule IdeaStartButton.Ideas do
 
   """
   def list_ideas(opts \\ []) do
-    default_opts = [preload: []]
+    default_opts = [preload: [], filters: [authors: [], keywords: []]]
     opts = Keyword.merge(default_opts, opts)
-    Repo.all from Idea,
-      preload: ^opts[:preload]
+
+    ideas_query =
+      Idea
+      |> join(:left, [idea], author in assoc(idea, :author))
+      |> maybe_filter_by_authors(opts[:filters][:authors])
+      |> maybe_filter_by_keywords(opts[:filters][:keywords])
+      |> preload(^opts[:preload])
+
+    Repo.all(ideas_query)
+  end
+
+  defp maybe_filter_by_authors(query, []), do: query
+  defp maybe_filter_by_authors(query, authors) do
+    query
+    |> where([idea, author], author.name in ^authors)
+  end
+
+  defp maybe_filter_by_keywords(query, []), do: query
+  defp maybe_filter_by_keywords(query, keywords) do
+    keywords_string = keywords |> Enum.join("%") |> surround("%")
+    query
+    |> where([idea, author], like(idea.title, ^keywords_string) or like(idea.description, ^keywords_string))
+  end
+
+  defp surround(string, string_to_surround) do
+    string_to_surround <> string <> string_to_surround
   end
 
   @doc """

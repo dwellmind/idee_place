@@ -4,6 +4,16 @@
 <span><%= link "New Idea", to: Routes.idea_path(@conn, :new) %></span>
 <% end %>
 
+<form>
+  <%= text_input :search, :query,
+      value: get_in(@conn.query_params, ["search", "query"]),
+      placeholder: "Search...",
+      autofocus: true %>
+  <div>
+    <%= submit "Search" %>
+  </div>
+</form>
+
 <table>
   <thead>
     <tr>
