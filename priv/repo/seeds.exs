@@ -28,6 +28,10 @@ elixir_topic = Repo.insert!(%Ideas.Topic{
   name: "elixir"
 })
 
+ruby_topic = Repo.insert!(%Ideas.Topic{
+  name: "ruby"
+})
+
 survival_topic = Repo.insert!(%Ideas.Topic{
   name: "survival"
 })
@@ -39,7 +43,7 @@ alice = Repo.insert!(%Accounts.User{
   interests: [computing_topic, elixir_topic]
 })
 
-_bob = Repo.insert!(%Accounts.User{
+bob = Repo.insert!(%Accounts.User{
   name: "Bob",
   email: "bob@mail.net",
   hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2", # "password"
@@ -58,4 +62,67 @@ Repo.insert!(%Ideas.Idea{
   description: "I should think about… wait a minute. It's Elixir of course!",
   author: alice,
   topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 1",
+  description: "Idea description 1",
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 2",
+  description: "Idea description 2",
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 3",
+  description: "Idea description 3",
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 4",
+  description: "Idea description 4",
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 5",
+  description: "Idea description 5",
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 5",
+  description: "Idea description 6",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 7",
+  description: "Idea description 7",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 8",
+  description: "Idea description 8",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 9",
+  description: "Idea description 9",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
 })
