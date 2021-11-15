@@ -1,7 +1,7 @@
-defmodule IdeaStartButtonWeb.IdeaControllerTest do
-  use IdeaStartButtonWeb.ConnCase
+defmodule IdeePlaceWeb.IdeaControllerTest do
+  use IdeePlaceWeb.ConnCase
 
-  import IdeaStartButton.IdeasFixtures
+  import IdeePlace.IdeasFixtures
 
   @create_attrs %{
     title: "Some title",

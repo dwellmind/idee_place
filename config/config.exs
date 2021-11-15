@@ -7,15 +7,15 @@
 # General application configuration
 import Config
 
-config :idea_start_button,
-  ecto_repos: [IdeaStartButton.Repo]
+config :idee_place,
+  ecto_repos: [IdeePlace.Repo]
 
 # Configures the endpoint
-config :idea_start_button, IdeaStartButtonWeb.Endpoint,
+config :idee_place, IdeePlaceWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: IdeaStartButtonWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: IdeaStartButton.PubSub,
-  live_view: [signing_salt: "6DTu7FOu"]
+  render_errors: [view: IdeePlaceWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: IdeePlace.PubSub,
+  live_view: [signing_salt: "ef+98NhG"]
 
 # Configures the mailer
 #
@@ -24,7 +24,7 @@ config :idea_start_button, IdeaStartButtonWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :idea_start_button, IdeaStartButton.Mailer, adapter: Swoosh.Adapters.Local
+config :idee_place, IdeePlace.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

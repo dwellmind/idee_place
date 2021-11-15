@@ -1,8 +1,8 @@
-defmodule IdeaStartButtonWeb.IdeasLiveTest do
-  use IdeaStartButtonWeb.ConnCase
+defmodule IdeePlaceWeb.IdeasLiveTest do
+  use IdeePlaceWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import IdeaStartButton.IdeasFixtures
+  import IdeePlace.IdeasFixtures
 
   setup :register_and_log_in_user
 

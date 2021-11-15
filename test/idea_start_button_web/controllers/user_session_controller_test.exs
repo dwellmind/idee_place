@@ -1,7 +1,7 @@
-defmodule IdeaStartButtonWeb.UserSessionControllerTest do
-  use IdeaStartButtonWeb.ConnCase, async: true
+defmodule IdeePlaceWeb.UserSessionControllerTest do
+  use IdeePlaceWeb.ConnCase, async: true
 
-  import IdeaStartButton.AccountsFixtures
+  import IdeePlace.AccountsFixtures
 
   setup do
     %{user: user_fixture()}
@@ -50,7 +50,7 @@ defmodule IdeaStartButtonWeb.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_idea_start_button_web_user_remember_me"]
+      assert conn.resp_cookies["_idee_place_web_user_remember_me"]
       assert redirected_to(conn) == "/"
     end
 

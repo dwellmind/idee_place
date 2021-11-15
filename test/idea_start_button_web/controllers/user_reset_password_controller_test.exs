@@ -1,9 +1,9 @@
-defmodule IdeaStartButtonWeb.UserResetPasswordControllerTest do
-  use IdeaStartButtonWeb.ConnCase, async: true
+defmodule IdeePlaceWeb.UserResetPasswordControllerTest do
+  use IdeePlaceWeb.ConnCase, async: true
 
-  alias IdeaStartButton.Accounts
-  alias IdeaStartButton.Repo
-  import IdeaStartButton.AccountsFixtures
+  alias IdeePlace.Accounts
+  alias IdeePlace.Repo
+  import IdeePlace.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

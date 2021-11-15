@@ -1,10 +1,10 @@
 import Config
 
 # Configure your database
-config :idea_start_button, IdeaStartButton.Repo,
+config :idee_place, IdeePlace.Repo,
   username: "postgres",
   password: "postgres",
-  database: "idea_start_button_dev",
+  database: "idee_place_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :idea_start_button, IdeaStartButton.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :idea_start_button, IdeaStartButtonWeb.Endpoint,
+config :idee_place, IdeePlaceWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
@@ -53,13 +53,13 @@ config :idea_start_button, IdeaStartButtonWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :idea_start_button, IdeaStartButtonWeb.Endpoint,
+config :idee_place, IdeePlaceWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/idea_start_button_web/(live|views)/.*(ex)$",
-      ~r"lib/idea_start_button_web/templates/.*(eex)$"
+      ~r"lib/idee_place_web/(live|views)/.*(ex)$",
+      ~r"lib/idee_place_web/templates/.*(eex)$"
     ]
   ]
 
@@ -74,7 +74,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 # dev.exs should ultimately end up looking like this:
-config :idea_start_button, IdeaStartButtonWeb.Endpoint,
+config :idee_place, IdeePlaceWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],

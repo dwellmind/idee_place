@@ -1,8 +1,8 @@
-defmodule IdeaStartButtonWeb.UserSettingsControllerTest do
-  use IdeaStartButtonWeb.ConnCase, async: true
+defmodule IdeePlaceWeb.UserSettingsControllerTest do
+  use IdeePlaceWeb.ConnCase, async: true
 
-  alias IdeaStartButton.Accounts
-  import IdeaStartButton.AccountsFixtures
+  alias IdeePlace.Accounts
+  import IdeePlace.AccountsFixtures
 
   setup :register_and_log_in_user
 

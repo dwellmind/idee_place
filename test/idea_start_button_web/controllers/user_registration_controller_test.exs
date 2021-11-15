@@ -1,7 +1,7 @@
-defmodule IdeaStartButtonWeb.UserRegistrationControllerTest do
-  use IdeaStartButtonWeb.ConnCase, async: true
+defmodule IdeePlaceWeb.UserRegistrationControllerTest do
+  use IdeePlaceWeb.ConnCase, async: true
 
-  import IdeaStartButton.AccountsFixtures
+  import IdeePlace.AccountsFixtures
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do

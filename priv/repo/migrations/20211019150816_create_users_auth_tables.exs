@@ -1,4 +1,4 @@
-defmodule IdeaStartButton.Repo.Migrations.CreateUsersAuthTables do
+defmodule IdeePlace.Repo.Migrations.CreateUsersAuthTables do
   use Ecto.Migration
 
   def change do

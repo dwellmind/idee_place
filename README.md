@@ -1,4 +1,4 @@
-# IdeaStartButton
+# Idee
 
 To start your Phoenix server:
 

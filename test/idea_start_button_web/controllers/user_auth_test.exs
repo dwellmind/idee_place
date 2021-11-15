@@ -1,16 +1,16 @@
-defmodule IdeaStartButtonWeb.UserAuthTest do
-  use IdeaStartButtonWeb.ConnCase, async: true
+defmodule IdeePlaceWeb.UserAuthTest do
+  use IdeePlaceWeb.ConnCase, async: true
 
-  alias IdeaStartButton.Accounts
-  alias IdeaStartButtonWeb.UserAuth
-  import IdeaStartButton.AccountsFixtures
+  alias IdeePlace.Accounts
+  alias IdeePlaceWeb.UserAuth
+  import IdeePlace.AccountsFixtures
 
-  @remember_me_cookie "_idea_start_button_web_user_remember_me"
+  @remember_me_cookie "_idee_place_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, IdeaStartButtonWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, IdeePlaceWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -65,7 +65,7 @@ defmodule IdeaStartButtonWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "users_sessions:abcdef-token"
-      IdeaStartButtonWeb.Endpoint.subscribe(live_socket_id)
+      IdeePlaceWeb.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)

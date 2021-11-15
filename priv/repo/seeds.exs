@@ -5,12 +5,12 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     IdeaStartButton.Repo.insert!(%IdeaStartButton.SomeSchema{})
+#     IdeePlace.Repo.insert!(%IdeePlace.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias IdeaStartButton.{
+alias IdeePlace.{
   Repo,
   Accounts,
   Ideas

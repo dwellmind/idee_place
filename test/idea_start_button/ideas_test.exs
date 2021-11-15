@@ -1,12 +1,12 @@
-defmodule IdeaStartButton.IdeasTest do
-  use IdeaStartButton.DataCase
+defmodule IdeePlace.IdeasTest do
+  use IdeePlace.DataCase
 
-  alias IdeaStartButton.Ideas
+  alias IdeePlace.Ideas
 
   describe "ideas" do
-    alias IdeaStartButton.Ideas.Idea
+    alias IdeePlace.Ideas.Idea
 
-    import IdeaStartButton.IdeasFixtures
+    import IdeePlace.IdeasFixtures
 
     @invalid_attrs %{
       title: nil,

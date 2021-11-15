@@ -1,4 +1,4 @@
-defmodule IdeaStartButton.Repo.Migrations.AddInterests do
+defmodule IdeePlace.Repo.Migrations.AddInterests do
   use Ecto.Migration
 
   def change do

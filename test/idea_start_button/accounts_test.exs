@@ -1,10 +1,10 @@
-defmodule IdeaStartButton.AccountsTest do
-  use IdeaStartButton.DataCase
+defmodule IdeePlace.AccountsTest do
+  use IdeePlace.DataCase
 
-  alias IdeaStartButton.Accounts
+  alias IdeePlace.Accounts
 
-  import IdeaStartButton.AccountsFixtures
-  alias IdeaStartButton.Accounts.{User, UserToken}
+  import IdeePlace.AccountsFixtures
+  alias IdeePlace.Accounts.{User, UserToken}
 
   describe "get_user_by_name/1" do
     test "does not return the user if the name does not exist" do

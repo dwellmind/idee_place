@@ -1,7 +1,7 @@
-defmodule IdeaStartButton.AccountsFixtures do
+defmodule IdeePlace.AccountsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `IdeaStartButton.Accounts` context.
+  entities via the `IdeePlace.Accounts` context.
   """
 
   def unique_user_name_and_email do
@@ -27,7 +27,7 @@ defmodule IdeaStartButton.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> IdeaStartButton.Accounts.register_user()
+      |> IdeePlace.Accounts.register_user()
 
     user
   end

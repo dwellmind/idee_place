@@ -1,7 +1,7 @@
-defmodule IdeaStartButton.IdeasFixtures do
+defmodule IdeePlace.IdeasFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `IdeaStartButton.Ideas` context.
+  entities via the `IdeePlace.Ideas` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule IdeaStartButton.IdeasFixtures do
         title: "Some title",
         description: "Some description"
       })
-      |> IdeaStartButton.Ideas.create_idea()
+      |> IdeePlace.Ideas.create_idea()
 
     idea
   end
