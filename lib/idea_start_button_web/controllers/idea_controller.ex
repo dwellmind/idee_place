@@ -4,29 +4,10 @@ defmodule IdeaStartButtonWeb.IdeaController do
   alias IdeaStartButton.Ideas
   alias IdeaStartButton.Ideas.Idea
 
-  alias IdeaStartButton.Repo
-  alias IdeaStartButton.Ideas.SearchParser
-
-  import Ecto.Query
-
-  def index(conn, %{"search" => %{"query" => query}}) do
-    %{keywords: keywords, authors: authors} = SearchParser.parse(query)
-
-    ideas =
-      Ideas.list_ideas(
-        preload: :author,
-        filters: [
-          keywords: keywords,
-          authors: authors
-        ]
-      )
-
-    render(conn, "index.html", ideas: ideas)
-  end
+  import Phoenix.LiveView.Controller, only: [live_render: 3]
 
   def index(conn, _param) do
-    ideas = Ideas.list_ideas preload: [:author]
-    render(conn, "index.html", ideas: ideas, search: "")
+    live_render(conn, IdeaStartButtonWeb.IdeasLive, session: %{})
   end
 
   def new(conn, _params) do

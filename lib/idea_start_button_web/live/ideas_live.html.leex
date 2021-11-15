@@ -1,0 +1,44 @@
+<h1>Listing Ideas</h1>
+
+<form id="ideas-search" phx-submit="search">
+  <%= text_input :search, :query,
+      value: @query,
+      placeholder: "Search...",
+      autofocus: true %>
+  <%= submit "Search", phx_disable_with: "Searching..." %>
+</form>
+
+<%= if Enum.empty?(@ideas) do %>
+  <%= if @query == "" do %>
+    <div>No ideas yet.</div>
+  <% else %>
+    <div>The query does not match any ideas.</div>
+  <% end %>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Author</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for idea <- @ideas do %>
+        <tr>
+          <td><%= idea.title %></td>
+          <td><%= idea.description %></td>
+          <td><%= idea.author.name %></td>
+          <td>
+            <span><%= link "Show", to: Routes.idea_path(@socket, :show, idea) %></span>
+            <%= if idea.author == @current_user do %>
+              <span><%= link "Edit", to: Routes.idea_path(@socket, :edit, idea) %></span>
+              <span><%= link "Delete", to: Routes.idea_path(@socket, :delete, idea), method: :delete, data: [confirm: "Are you sure?"] %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
