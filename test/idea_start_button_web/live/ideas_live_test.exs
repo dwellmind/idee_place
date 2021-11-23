@@ -19,7 +19,7 @@ defmodule IdeePlaceWeb.IdeasLiveTest do
 
       html =
         view
-        |> form("#ideas-search", search: %{query: "Some desc"})
+        |> form("#ideas-search", search: %{query: "Some ti"})
         |> render_submit()
 
       assert html =~ "The query does not match any ideas."
@@ -37,7 +37,7 @@ defmodule IdeePlaceWeb.IdeasLiveTest do
         |> form("#ideas-search", search: %{query: ""})
         |> render_submit()
 
-      assert html =~ "Some description"
+      assert html =~ "Some title"
     end
 
     test "show the ideas list filtered", %{conn: conn} do
@@ -52,10 +52,10 @@ defmodule IdeePlaceWeb.IdeasLiveTest do
 
       html =
         view
-        |> form("#ideas-search", search: %{query: "Some desc"})
+        |> form("#ideas-search", search: %{query: "Some ti"})
         |> render_submit()
 
-      assert html =~ "Some description"
+      assert html =~ "Some title"
     end
   end
 

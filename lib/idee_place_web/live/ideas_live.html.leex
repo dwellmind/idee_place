@@ -18,24 +18,18 @@
   <table>
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Description</th>
         <th>Author</th>
-        <th></th>
+        <th>Title</th>
       </tr>
     </thead>
     <tbody>
       <%= for idea <- @ideas do %>
         <tr>
-          <td><%= idea.title %></td>
-          <td><%= idea.description %></td>
           <td><%= idea.author.name %></td>
           <td>
-            <span><%= link "Show", to: Routes.idea_path(@socket, :show, idea) %></span>
-            <%= if idea.author == @current_user do %>
-              <span><%= link "Edit", to: Routes.idea_path(@socket, :edit, idea) %></span>
-              <span><%= link "Delete", to: Routes.idea_path(@socket, :delete, idea), method: :delete, data: [confirm: "Are you sure?"] %></span>
-            <% end %>
+            <a href="<%= Routes.idea_path(@socket, :show, idea) %>" style="display: block;">
+              <div><%= idea.title %></div>
+            </a>
           </td>
         </tr>
       <% end %>

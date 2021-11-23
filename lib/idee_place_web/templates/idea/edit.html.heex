@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.idea_path(@conn, :update, @idea)) %>
 
-<span><%= link "Back", to: Routes.idea_path(@conn, :index) %></span>
+<span><%= link "Delete", to: Routes.idea_path(@conn, :delete, @idea), method: :delete, data: [confirm: "Are you sure?"] %></span>
