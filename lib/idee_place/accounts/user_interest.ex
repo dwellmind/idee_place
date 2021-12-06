@@ -13,8 +13,8 @@ defmodule IdeePlace.Accounts.UserInterest do
   end
 
   @doc false
-  def changeset(topic, attrs) do
-    topic
+  def changeset(user_interest, attrs) do
+    user_interest
     |> cast(attrs, [:user_id, :topic_id])
     |> validate_required([:user_id, :topic_id])
     |> unsafe_validate_unique([:user_id, :topic_id], IdeePlace.Repo)
