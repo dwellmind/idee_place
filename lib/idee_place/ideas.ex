@@ -6,8 +6,10 @@ defmodule IdeePlace.Ideas do
   import Ecto.Query, warn: false
   alias IdeePlace.Repo
 
+  alias IdeePlace.Accounts.User
   alias IdeePlace.Ideas.Idea
   alias IdeePlace.Ideas.Topic
+  alias IdeePlace.Ideas.UserStarredIdea
 
   @doc """
   Returns the list of ideas.
@@ -47,6 +49,43 @@ defmodule IdeePlace.Ideas do
 
   defp surround(string, string_to_surround) do
     string_to_surround <> string <> string_to_surround
+  end
+
+  @doc """
+  Get starred ideas ID for a user.
+  """
+  def idea_is_starred_by(idea, user)
+
+  def idea_is_starred_by(idea, %User{} = user) do
+    idea_is_starred_by(idea, user.id)
+  end
+
+  def idea_is_starred_by(%Idea{} = idea, user) do
+    idea_is_starred_by(idea.id, user)
+  end
+
+  def idea_is_starred_by(idea_id, user_id) do
+    UserStarredIdea
+    |> where([user_starred_idea], user_starred_idea.user_id == ^user_id)
+    |> where([user_starred_idea], user_starred_idea.idea_id == ^idea_id)
+    |> Repo.exists?()
+  end
+
+  @doc """
+  Get starred ideas ID for a user.
+  """
+  def list_starred_ideas_id_for(user)
+
+  def list_starred_ideas_id_for(%User{} = user) do
+    list_starred_ideas_id_for(user.id)
+  end
+
+  def list_starred_ideas_id_for(user_id) do
+    Idea
+    |> join(:left, [idea], user_starred_idea in assoc(idea, :starred_by))
+    |> where([_idea, user], user.id == ^user_id)
+    |> select([idea], idea.id)
+    |> Repo.all()
   end
 
   @doc """

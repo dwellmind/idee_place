@@ -18,6 +18,9 @@
   <table>
     <thead>
       <tr>
+        <%= if @current_user do %>
+          <th></th>
+        <% end %>
         <th>Author</th>
         <th>Title</th>
       </tr>
@@ -25,9 +28,16 @@
     <tbody>
       <%= for idea <- @ideas do %>
         <tr>
+          <%= if @current_user do %>
+            <td>
+              <%= if Enum.any?(@starred_ideas_id, fn starred_idea_id -> starred_idea_id == idea.id end) do %>
+                <img src=<%= Routes.static_path(@socket, "/assets/icons/starred.png") %>/>
+              <% end %>
+            </td>
+          <% end %>
           <td><%= idea.author.name %></td>
           <td>
-            <a href="<%= Routes.idea_path(@socket, :show, idea) %>" style="display: block;">
+            <a href=<%= Routes.idea_path(@socket, :show, idea) %>>
               <div><%= idea.title %></div>
             </a>
           </td>

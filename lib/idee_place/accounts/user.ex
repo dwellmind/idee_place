@@ -5,6 +5,7 @@ defmodule IdeePlace.Accounts.User do
   alias IdeePlace.Ideas.Idea
   alias IdeePlace.Ideas.Topic
   alias IdeePlace.Accounts.UserInterest
+  alias IdeePlace.Ideas.UserStarredIdea
 
   schema "users" do
     field :name, :string
@@ -12,8 +13,10 @@ defmodule IdeePlace.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+
     has_many :ideas, Idea, foreign_key: :author_id
     many_to_many :interests, Topic, join_through: UserInterest
+    many_to_many :starred_ideas, Idea, join_through: UserStarredIdea
 
     timestamps()
   end

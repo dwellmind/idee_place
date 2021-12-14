@@ -4,18 +4,19 @@ defmodule IdeePlaceWeb.IdeasLive do
   alias IdeePlace.Accounts
   alias IdeePlace.Ideas
 
-  alias IdeePlace.Accounts
-  alias IdeePlace.Ideas
-
-  alias IdeePlace.Accounts
-  alias IdeePlace.Ideas
-
   def mount(_params, session, socket) do
     socket = assign_defaults(session, socket)
 
     ideas = Ideas.list_ideas(preload: :author)
 
-    {:ok, assign(socket, ideas: ideas, query: "")}
+    starred_ideas_id =
+      if socket.assigns.current_user do
+        Ideas.list_starred_ideas_id_for(socket.assigns.current_user)
+      else
+        nil
+      end
+
+    {:ok, assign(socket, ideas: ideas, starred_ideas_id: starred_ideas_id, query: "")}
   end
 
   def handle_event("search", %{"search" => %{"query" => ""}}, socket) do

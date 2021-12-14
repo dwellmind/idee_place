@@ -64,21 +64,21 @@ Repo.insert!(%Ideas.Idea{
   topics: [computing_topic, elixir_topic]
 })
 
-Repo.insert!(%Ideas.Idea{
+idea1 = Repo.insert!(%Ideas.Idea{
   title: "Idea title 1",
   description: "Idea description 1",
   author: bob,
   topics: [computing_topic, elixir_topic]
 })
 
-Repo.insert!(%Ideas.Idea{
+idea2 = Repo.insert!(%Ideas.Idea{
   title: "Idea title 2",
   description: "Idea description 2",
   author: bob,
   topics: [computing_topic, elixir_topic]
 })
 
-Repo.insert!(%Ideas.Idea{
+idea3 = Repo.insert!(%Ideas.Idea{
   title: "Idea title 3",
   description: "Idea description 3",
   author: bob,
@@ -125,4 +125,19 @@ Repo.insert!(%Ideas.Idea{
   description: "Idea description 9",
   author: bob,
   topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.UserStarredIdea{
+  user: alice,
+  idea: idea1
+})
+
+Repo.insert!(%Ideas.UserStarredIdea{
+  user: alice,
+  idea: idea2
+})
+
+Repo.insert!(%Ideas.UserStarredIdea{
+  user: bob,
+  idea: idea3
 })

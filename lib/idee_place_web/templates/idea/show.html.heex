@@ -3,6 +3,11 @@
   <%= if is_current_user(@conn, @idea.author) do %>
     <div>
       <span><%= link "Edit", to: Routes.idea_path(@conn, :edit, @idea) %></span>
+      <%= if @current_user do %>
+        <span>
+          <img src={ Routes.static_path(@conn, "/assets/icons/starred.png") }/>
+        </span>
+      <% end %>
     </div>
   <% end %>
 </div>

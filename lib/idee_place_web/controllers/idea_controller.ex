@@ -33,7 +33,8 @@ defmodule IdeePlaceWeb.IdeaController do
 
   def show(conn, %{"id" => id}) do
     idea = Ideas.get_idea!(id, preload: [:author, :topics])
-    render(conn, "show.html", idea: idea)
+    idea_is_starred = Ideas.idea_is_starred_by(idea, conn.assigns.current_user)
+    render(conn, "show.html", idea: idea, idea_is_starred: idea_is_starred)
   end
 
   def edit(conn, %{"id" => id}) do

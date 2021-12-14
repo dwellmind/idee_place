@@ -5,12 +5,15 @@ defmodule IdeePlace.Ideas.Idea do
   alias IdeePlace.Accounts.User
   alias IdeePlace.Ideas.Topic
   alias IdeePlace.Ideas.IdeaTopic
+  alias IdeePlace.Ideas.UserStarredIdea
 
   schema "ideas" do
     field :title, :string
     field :description, :string
+
     belongs_to :author, User
     many_to_many :topics, Topic, join_through: IdeaTopic
+    many_to_many :starred_by, User, join_through: UserStarredIdea
 
     timestamps()
   end
