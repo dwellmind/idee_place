@@ -1,8 +1,6 @@
 defmodule IdeePlace.Ideas.SearchParser do
   @authors_regex ~r/@[a-zA-Z]*/
 
-  alias Enum
-
   @doc """
   Parse a search string and return a Map with keywords and authors.
 
@@ -16,20 +14,29 @@ defmodule IdeePlace.Ideas.SearchParser do
 
   """
   def parse(search) do
-    keywords = find_keywords(search)
-    authors = find_authors(search)
-    %{keywords: keywords, authors: authors}
+    words = String.split(search, " ")
+
+    {authors, words} = find_authors(words)
+    {keywords, _} = find_keywords(words)
+
+    %{
+      authors: authors,
+      keywords: keywords
+    } |> IO.inspect(label: "PARSING:")
   end
 
-  defp find_authors(search) do
-    Regex.scan(@authors_regex, search)
-    |> Enum.flat_map(fn author -> author end)
-    |> Enum.map(fn author -> String.trim(author, "@") end)
+  defp find_authors(words) do
+    {patterns, rest} = catch_pattern(words, @authors_regex)
+    {Enum.map(patterns, &String.trim(&1, "@")), rest}
   end
 
-  defp find_keywords(search) do
-    Regex.split(@authors_regex, search)
-    |> Enum.flat_map(fn string -> String.split(string, " ") end)
-    |> Enum.filter(fn string -> string != "" end)
+  defp find_keywords(words) do
+    {words, []}
+  end
+
+  defp catch_pattern(words, regex) do
+    words
+    |> Enum.group_by(fn word -> Regex.match?(regex, word) end)
+    |> then(&({&1[true] || [], &1[false] || []}))
   end
 end
