@@ -22,24 +22,37 @@ defmodule IdeePlace.Ideas do
 
   """
   def list_ideas(opts \\ []) do
-    default_opts = [preload: [], filters: [authors: [], keywords: []]]
+    default_opts = [preload: [], filters: [authors: [], user_stars: [], keywords: []]]
     opts = Keyword.merge(default_opts, opts)
 
-    ideas_query =
-      Idea
-      |> join(:left, [idea], author in assoc(idea, :author))
-      |> maybe_filter_by_authors(opts[:filters][:authors])
-      |> maybe_filter_by_keywords(opts[:filters][:keywords])
-      |> preload(^opts[:preload])
-
-    Repo.all(ideas_query)
+    Idea
+    |> join(:left, [idea], author in assoc(idea, :author))
+    |> join(:left, [idea, _author], user_starred_idea in assoc(idea, :starred_by))
+    |> maybe_filter_by_authors(opts[:filters][:authors])
+    |> maybe_filter_by_user_stars(opts[:filters][:user_stars])
+    |> maybe_filter_by_keywords(opts[:filters][:keywords])
+    |> preload(^opts[:preload])
+    |> Repo.all()
   end
 
   defp maybe_filter_by_authors(query, []), do: query
 
   defp maybe_filter_by_authors(query, authors) do
     query
-    |> where([idea, author], author.name in ^authors)
+    |> where([idea, author, user_starred_idea], author.name in ^authors)
+  end
+
+  defp maybe_filter_by_user_stars(query, []), do: query
+
+  defp maybe_filter_by_user_stars(query, users_name) do
+    users_id =
+      User
+      |> where([user], user.name in ^users_name)
+      |> select([user], user.id)
+      |> Repo.all()
+
+    query
+    |> where([idea, author, user_starred_idea], user_starred_idea.id in ^users_id)
   end
 
   defp maybe_filter_by_keywords(query, []), do: query
