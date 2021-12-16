@@ -6,7 +6,8 @@ defmodule IdeePlace.Accounts do
   import Ecto.Query, warn: false
   alias IdeePlace.Repo
 
-  alias IdeePlace.Accounts.{User, UserToken, UserNotifier, UserStarredTopic}
+  alias IdeePlace.Accounts.{User, UserToken, UserNotifier}
+  alias IdeePlace.Ideas.UserStarredTopic
 
   ## Database getters
 
