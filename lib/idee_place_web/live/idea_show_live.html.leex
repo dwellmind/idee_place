@@ -1,20 +1,20 @@
 <div class="flex justify-between">
   <h1>Show Idea</h1>
   <div>
-    <%= if is_current_user(@conn, @idea.author) do %>
-      <span><%= link "Edit", to: Routes.idea_path(@conn, :edit, @idea) %></span>
+    <%= if @current_user == @idea.author do %>
+      <span><%= link "Edit", to: Routes.idea_path(@socket, :edit, @idea) %></span>
     <% end %>
     <%= if @current_user do %>
       <%= if @idea_is_starred do %>
         <span>
           <button phx-click="unstar_idea">
-            <img src={ Routes.static_path(@conn, "/assets/icons/starred.png") }/>
+            <img src=<%= Routes.static_path(@socket, "/assets/icons/starred.png") %>/>
           </button>
         </span>
       <% else %>
         <span>
           <button phx-click="star_idea">
-            <img src={ Routes.static_path(@conn, "/assets/icons/unstarred.png") }/>
+            <img src=<%= Routes.static_path(@socket, "/assets/icons/unstarred.png") %>/>
           </button>
         </span>
       <% end %>

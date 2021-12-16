@@ -7,7 +7,7 @@ defmodule IdeePlaceWeb.IdeaController do
   import Phoenix.LiveView.Controller, only: [live_render: 3]
 
   def index(conn, _param) do
-    live_render(conn, IdeePlaceWeb.IdeasLive, session: %{})
+    live_render(conn, IdeePlaceWeb.IdeaIndexLive, session: %{})
   end
 
   def new(conn, _params) do
@@ -32,9 +32,11 @@ defmodule IdeePlaceWeb.IdeaController do
   end
 
   def show(conn, %{"id" => id}) do
-    idea = Ideas.get_idea!(id, preload: [:author, :topics])
-    idea_is_starred = Ideas.idea_is_starred_by(idea, conn.assigns.current_user)
-    render(conn, "show.html", idea: idea, idea_is_starred: idea_is_starred)
+    current_user = conn.assigns.current_user
+
+    live_render(conn, IdeePlaceWeb.IdeaShowLive,
+      session: %{"current_user" => current_user, "idea_id" => id}
+    )
   end
 
   def edit(conn, %{"id" => id}) do

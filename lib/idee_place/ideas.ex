@@ -52,9 +52,54 @@ defmodule IdeePlace.Ideas do
   end
 
   @doc """
+  Star an idea if for a user.
+  """
+  def star_idea_for(idea, user)
+
+  def star_idea_for(idea, %User{} = user) do
+    star_idea_for(idea, user.id)
+  end
+
+  def star_idea_for(%Idea{} = idea, user) do
+    star_idea_for(idea.id, user)
+  end
+
+  def star_idea_for(idea_id, user_id) do
+    user_starred_idea = %UserStarredIdea{
+      user_id: user_id,
+      idea_id: idea_id
+    }
+
+    Repo.insert(user_starred_idea)
+  end
+
+  @doc """
+  Unstar an idea if for a user.
+  """
+  def unstar_idea_for(idea, user)
+
+  def unstar_idea_for(idea, %User{} = user) do
+    unstar_idea_for(idea, user.id)
+  end
+
+  def unstar_idea_for(%Idea{} = idea, user) do
+    unstar_idea_for(idea.id, user)
+  end
+
+  def unstar_idea_for(idea_id, user_id) do
+    user_starred_idea = get_user_starred_idea!(user_id, idea_id)
+
+    Repo.delete(user_starred_idea)
+  end
+
+  @doc """
   Get starred ideas ID for a user.
   """
   def idea_is_starred_by(idea, user)
+
+  def idea_is_starred_by(_idea, nil) do
+    false
+  end
 
   def idea_is_starred_by(idea, %User{} = user) do
     idea_is_starred_by(idea, user.id)
@@ -278,5 +323,28 @@ defmodule IdeePlace.Ideas do
   """
   def change_topic(%Topic{} = topic, attrs \\ %{}) do
     Topic.changeset(topic, attrs)
+  end
+
+  @doc """
+  Gets a single user starred idea.
+
+  Raises `Ecto.NoResultsError` if the UserStarredIdea does not exist.
+
+  ## Examples
+
+      iex> get_user_starred_idea!(123, 456)
+      %UserStarredIdea{}
+
+      iex> get_user_starred_id!(456, 789)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_starred_idea!(user_id, idea_id, opts \\ []) do
+    default_opts = [preload: []]
+    opts = Keyword.merge(default_opts, opts)
+
+    Repo.one! from user_starred_idea in UserStarredIdea,
+      where: user_starred_idea.user_id == ^user_id and user_starred_idea.idea_id == ^idea_id,
+      preload: ^opts[:preload]
   end
 end

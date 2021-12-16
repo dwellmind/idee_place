@@ -1,4 +1,4 @@
-defmodule IdeePlaceWeb.IdeasLive do
+defmodule IdeePlaceWeb.IdeaIndexLive do
   use IdeePlaceWeb, :live_view
 
   alias IdeePlace.Accounts
