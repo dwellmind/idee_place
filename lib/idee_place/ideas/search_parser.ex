@@ -1,5 +1,6 @@
 defmodule IdeePlace.Ideas.SearchParser do
   @authors_regex ~r/@[a-zA-Z]*/
+  @user_stars_regex ~r/![a-zA-Z]*/
 
   @doc """
   Parse a search string and return a Map with keywords and authors.
@@ -17,10 +18,12 @@ defmodule IdeePlace.Ideas.SearchParser do
     words = String.split(search, " ")
 
     {authors, words} = find_authors(words)
+    {user_stars, words} = find_user_stars(words)
     {keywords, _} = find_keywords(words)
 
     %{
       authors: authors,
+      user_stars: user_stars,
       keywords: keywords
     } |> IO.inspect(label: "PARSING:")
   end
@@ -28,6 +31,11 @@ defmodule IdeePlace.Ideas.SearchParser do
   defp find_authors(words) do
     {patterns, rest} = catch_pattern(words, @authors_regex)
     {Enum.map(patterns, &String.trim(&1, "@")), rest}
+  end
+
+  defp find_user_stars(words) do
+    {patterns, rest} = catch_pattern(words, @user_stars_regex)
+    {Enum.map(patterns, &String.trim(&1, "!")), rest}
   end
 
   defp find_keywords(words) do
