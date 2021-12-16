@@ -2,13 +2,15 @@ defmodule IdeePlaceWeb.UserSettingsController do
   use IdeePlaceWeb, :controller
 
   alias IdeePlace.Accounts
+  alias IdeePlace.Ideas
   alias IdeePlaceWeb.UserAuth
 
   plug :assign_email_and_password_changesets
 
   def edit(conn, _params) do
     user_id = conn.assigns.current_user.id
-    render(conn, "edit.html", user_interests: get_user_interests(user_id))
+    user_starred_topics = Ideas.list_user_starred_topics(user_id)
+    render(conn, "edit.html", user_starred_topics: user_starred_topics)
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
@@ -69,13 +71,8 @@ defmodule IdeePlaceWeb.UserSettingsController do
     user = conn.assigns.current_user
 
     conn
-    |> assign(:user_interests, ["computing", "elixir"])
+    |> assign(:user_starred_topics, [%{topic: %{name: "computing"}}, %{topic: %{name: "elixir"}}])
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
-  end
-
-  defp get_user_interests(user_id) do
-    IdeePlace.Accounts.list_user_interests(user_id)
-    |> Enum.map(fn user_interest -> user_interest.topic.name end)
   end
 end

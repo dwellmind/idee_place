@@ -4,7 +4,7 @@
 
 <ul>
   <li>Username: <%= @current_user.name %></li>
-  <li>Interests: <%= Enum.join(@user_interests, ", ") %></li>
+  <li>Starred topics: <%= @user_starred_topics |> Enum.map(&(&1.topic.name)) |> Enum.join(", ") %></li>
 </ul>
 
 <h3>Change email</h3>

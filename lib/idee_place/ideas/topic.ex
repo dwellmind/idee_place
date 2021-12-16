@@ -2,15 +2,15 @@ defmodule IdeePlace.Ideas.Topic do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias IdeePlace.Accounts.User
   alias IdeePlace.Ideas.Idea
   alias IdeePlace.Ideas.IdeaTopic
-  alias IdeePlace.Accounts.User
-  alias IdeePlace.Accounts.UserInterest
+  alias IdeePlace.Ideas.UserStarredTopic
 
   schema "topics" do
     field :name, :string
     many_to_many :ideas, Idea, join_through: IdeaTopic
-    many_to_many :those_concerned, User, join_through: UserInterest
+    many_to_many :starred_by, User, join_through: UserStarredTopic
 
     timestamps()
   end

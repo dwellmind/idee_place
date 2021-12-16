@@ -10,6 +10,7 @@ defmodule IdeePlace.Ideas do
   alias IdeePlace.Ideas.Idea
   alias IdeePlace.Ideas.Topic
   alias IdeePlace.Ideas.UserStarredIdea
+  alias IdeePlace.Ideas.UserStarredTopic
 
   @doc """
   Returns the list of ideas.
@@ -323,6 +324,23 @@ defmodule IdeePlace.Ideas do
   """
   def change_topic(%Topic{} = topic, attrs \\ %{}) do
     Topic.changeset(topic, attrs)
+  end
+
+  @doc """
+  Returns the list of user starred topics.
+
+  ## Examples
+
+      iex> list_user_starred_topics(2)
+      [%UserStarredTopic{}, ...]
+
+  """
+  def list_user_starred_topics(user_id) do
+    Repo.all(
+      from user_starred_topic in UserStarredTopic,
+        where: user_starred_topic.user_id == ^user_id,
+        preload: [:topic]
+    )
   end
 
   @doc """

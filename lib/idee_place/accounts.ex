@@ -6,7 +6,7 @@ defmodule IdeePlace.Accounts do
   import Ecto.Query, warn: false
   alias IdeePlace.Repo
 
-  alias IdeePlace.Accounts.{User, UserToken, UserNotifier, UserInterest}
+  alias IdeePlace.Accounts.{User, UserToken, UserNotifier, UserStarredTopic}
 
   ## Database getters
 
@@ -378,18 +378,18 @@ defmodule IdeePlace.Accounts do
   end
 
   @doc """
-  Returns the list of interests.
+  Returns the list of user starred topics.
 
   ## Examples
 
-      iex> list_user_interests(2)
-      [%UserInterest{}, ...]
+      iex> list_user_starred_topics(2)
+      [%UserStarredTopic{}, ...]
 
   """
-  def list_user_interests(user_id) do
+  def list_user_starred_topics(user_id) do
     Repo.all(
-      from user_interest in UserInterest,
-        where: user_interest.user_id == ^user_id,
+      from user_starred_topic in UserStarredTopic,
+        where: user_starred_topic.user_id == ^user_id,
         preload: [:topic]
     )
   end
