@@ -25,7 +25,7 @@ defmodule IdeePlace.Ideas.SearchParser do
       authors: authors,
       user_stars: user_stars,
       keywords: keywords
-    } |> IO.inspect(label: "PARSING:")
+    }
   end
 
   defp find_authors(words) do
