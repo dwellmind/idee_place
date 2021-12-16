@@ -36,16 +36,22 @@ defmodule IdeePlace.Ideas do
   end
 
   defp maybe_filter_by_authors(query, []), do: query
+
   defp maybe_filter_by_authors(query, authors) do
     query
     |> where([idea, author], author.name in ^authors)
   end
 
   defp maybe_filter_by_keywords(query, []), do: query
+
   defp maybe_filter_by_keywords(query, keywords) do
     keywords_string = keywords |> Enum.join("%") |> surround("%")
+
     query
-    |> where([idea, author], like(idea.title, ^keywords_string) or like(idea.description, ^keywords_string))
+    |> where(
+      [idea, author],
+      like(idea.title, ^keywords_string) or like(idea.description, ^keywords_string)
+    )
   end
 
   defp surround(string, string_to_surround) do
@@ -122,6 +128,8 @@ defmodule IdeePlace.Ideas do
   """
   def list_starred_ideas_id_for(user)
 
+  def list_starred_ideas_id_for(nil), do: nil
+
   def list_starred_ideas_id_for(%User{} = user) do
     list_starred_ideas_id_for(user.id)
   end
@@ -152,9 +160,11 @@ defmodule IdeePlace.Ideas do
     default_opts = [preload: []]
     opts = Keyword.merge(default_opts, opts)
 
-    Repo.one! from idea in Idea,
-      where: idea.id == ^id,
-      preload: ^opts[:preload]
+    Repo.one!(
+      from idea in Idea,
+        where: idea.id == ^id,
+        preload: ^opts[:preload]
+    )
   end
 
   @doc """
@@ -234,8 +244,11 @@ defmodule IdeePlace.Ideas do
   def list_topics(opts \\ []) do
     default_opts = [preload: []]
     opts = Keyword.merge(default_opts, opts)
-    Repo.all from Topic,
-      preload: ^opts[:preload]
+
+    Repo.all(
+      from Topic,
+        preload: ^opts[:preload]
+    )
   end
 
   @doc """
@@ -256,9 +269,11 @@ defmodule IdeePlace.Ideas do
     default_opts = [preload: []]
     opts = Keyword.merge(default_opts, opts)
 
-    Repo.one! from topic in Topic,
-      where: topic.id == ^id,
-      preload: ^opts[:preload]
+    Repo.one!(
+      from topic in Topic,
+        where: topic.id == ^id,
+        preload: ^opts[:preload]
+    )
   end
 
   @doc """
@@ -361,8 +376,10 @@ defmodule IdeePlace.Ideas do
     default_opts = [preload: []]
     opts = Keyword.merge(default_opts, opts)
 
-    Repo.one! from user_starred_idea in UserStarredIdea,
-      where: user_starred_idea.user_id == ^user_id and user_starred_idea.idea_id == ^idea_id,
-      preload: ^opts[:preload]
+    Repo.one!(
+      from user_starred_idea in UserStarredIdea,
+        where: user_starred_idea.user_id == ^user_id and user_starred_idea.idea_id == ^idea_id,
+        preload: ^opts[:preload]
+    )
   end
 end

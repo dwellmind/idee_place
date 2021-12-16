@@ -16,39 +16,48 @@ alias IdeePlace.{
   Ideas
 }
 
-crazy_topic = Repo.insert!(%Ideas.Topic{
-  name: "crazy"
-})
+crazy_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "crazy"
+  })
 
-computing_topic = Repo.insert!(%Ideas.Topic{
-  name: "computing"
-})
+computing_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "computing"
+  })
 
-elixir_topic = Repo.insert!(%Ideas.Topic{
-  name: "elixir"
-})
+elixir_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "elixir"
+  })
 
-ruby_topic = Repo.insert!(%Ideas.Topic{
-  name: "ruby"
-})
+ruby_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "ruby"
+  })
 
-survival_topic = Repo.insert!(%Ideas.Topic{
-  name: "survival"
-})
+survival_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "survival"
+  })
 
-alice = Repo.insert!(%Accounts.User{
-  name: "Alice",
-  email: "alice@mail.net",
-  hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam", # "password"
-  starred_topics: [computing_topic, elixir_topic]
-})
+alice =
+  Repo.insert!(%Accounts.User{
+    name: "Alice",
+    email: "alice@mail.net",
+    # "password"
+    hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam",
+    starred_topics: [computing_topic, elixir_topic]
+  })
 
-bob = Repo.insert!(%Accounts.User{
-  name: "Bob",
-  email: "bob@mail.net",
-  hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2", # "password"
-  starred_topics: [computing_topic, crazy_topic]
-})
+bob =
+  Repo.insert!(%Accounts.User{
+    name: "Bob",
+    email: "bob@mail.net",
+    # "password"
+    hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2",
+    starred_topics: [computing_topic, crazy_topic]
+  })
 
 Repo.insert!(%Ideas.Idea{
   title: "Create a new world",
@@ -64,26 +73,29 @@ Repo.insert!(%Ideas.Idea{
   topics: [computing_topic, elixir_topic]
 })
 
-idea1 = Repo.insert!(%Ideas.Idea{
-  title: "Idea title 1",
-  description: "Idea description 1",
-  author: bob,
-  topics: [computing_topic, elixir_topic]
-})
+idea1 =
+  Repo.insert!(%Ideas.Idea{
+    title: "Idea title 1",
+    description: "Idea description 1",
+    author: bob,
+    topics: [computing_topic, elixir_topic]
+  })
 
-idea2 = Repo.insert!(%Ideas.Idea{
-  title: "Idea title 2",
-  description: "Idea description 2",
-  author: bob,
-  topics: [computing_topic, elixir_topic]
-})
+idea2 =
+  Repo.insert!(%Ideas.Idea{
+    title: "Idea title 2",
+    description: "Idea description 2",
+    author: bob,
+    topics: [computing_topic, elixir_topic]
+  })
 
-idea3 = Repo.insert!(%Ideas.Idea{
-  title: "Idea title 3",
-  description: "Idea description 3",
-  author: bob,
-  topics: [computing_topic, elixir_topic]
-})
+idea3 =
+  Repo.insert!(%Ideas.Idea{
+    title: "Idea title 3",
+    description: "Idea description 3",
+    author: bob,
+    topics: [computing_topic, elixir_topic]
+  })
 
 Repo.insert!(%Ideas.Idea{
   title: "Idea title 4",

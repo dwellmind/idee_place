@@ -38,6 +38,7 @@ defmodule IdeePlace.IdeasTest do
 
     test "update_idea/2 with valid data updates the idea" do
       idea = idea_fixture()
+
       update_attrs = %{
         title: "some updated title",
         description: "some updated description"

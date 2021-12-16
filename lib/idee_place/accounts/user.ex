@@ -7,7 +7,6 @@ defmodule IdeePlace.Accounts.User do
   alias IdeePlace.Ideas.UserStarredIdea
   alias IdeePlace.Ideas.UserStarredTopic
 
-
   schema "users" do
     field :name, :string
     field :email, :string

@@ -5,7 +5,7 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
 
   @create_attrs %{
     title: "Some title",
-    description: "Some description",
+    description: "Some description"
   }
 
   @update_attrs %{
@@ -19,7 +19,7 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
   }
 
   describe "index" do
-     test "lists all ideas", %{conn: conn} do
+    test "lists all ideas", %{conn: conn} do
       conn = get(conn, Routes.idea_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Ideas"
     end
