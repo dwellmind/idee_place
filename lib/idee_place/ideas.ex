@@ -54,8 +54,12 @@ defmodule IdeePlace.Ideas do
       |> select([topic], topic.id)
       |> Repo.all()
 
+    topics_count = Enum.count(topics_id)
+
     query
     |> where([_idea, _author, topic, _starrer], topic.id in ^topics_id)
+    |> group_by([idea, _author, _topic, _starrer], idea.id)
+    |> having([idea, _author, _topic, _starrer], count(idea.id) == ^topics_count)
   end
 
   defp maybe_filter_by_starrer(query, []), do: query
