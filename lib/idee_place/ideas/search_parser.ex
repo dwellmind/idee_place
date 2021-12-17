@@ -9,14 +9,16 @@ defmodule IdeePlace.Ideas.SearchParser do
   ## Examples
 
       iex> IdeePlace.Ideas.SearchParser.parse("@alice elixir programming")
-      %{keywords: ["elixir", "programming"], authors: ["alice"]}
+      %{keywords: ["elixir", "programming"], authors: ["alice"], topics: [], user_stars: []}
 
       iex> IdeePlace.Ideas.SearchParser.parse("ruby @alice  @bob")
-      %{keywords: ["ruby"], authors: ["alice", "bob"]}
+      %{keywords: ["ruby"], authors: ["alice", "bob"], topics: [], user_stars: []}
 
   """
   def parse(search) do
-    words = String.split(search, " ")
+    words =
+      String.split(search, " ")
+      |> Enum.filter(fn word -> word != "" end)
 
     {authors, words} = find_authors(words)
     {topics, words} = find_topics(words)
