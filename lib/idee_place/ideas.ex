@@ -22,15 +22,18 @@ defmodule IdeePlace.Ideas do
 
   """
   def list_ideas(opts \\ []) do
-    default_opts = [preload: [], filters: [authors: [], user_stars: [], keywords: []]]
+    default_opts = [preload: [], filters: [authors: [], topics: [], user_stars: [], keywords: []]]
     opts = Keyword.merge(default_opts, opts)
 
     Idea
     |> join(:left, [idea], author in assoc(idea, :author))
-    |> join(:left, [idea, _author], user_starred_idea in assoc(idea, :starred_by))
+    |> join(:left, [idea, _author], topics in assoc(idea, :topics))
+    |> join(:left, [idea, _author, _topic], starrer in assoc(idea, :starred_by))
     |> maybe_filter_by_authors(opts[:filters][:authors])
-    |> maybe_filter_by_user_stars(opts[:filters][:user_stars])
+    |> maybe_filter_by_topics(opts[:filters][:topics])
+    |> maybe_filter_by_starrer(opts[:filters][:user_stars])
     |> maybe_filter_by_keywords(opts[:filters][:keywords])
+    |> distinct([idea], idea.id)
     |> preload(^opts[:preload])
     |> Repo.all()
   end
@@ -39,12 +42,25 @@ defmodule IdeePlace.Ideas do
 
   defp maybe_filter_by_authors(query, authors) do
     query
-    |> where([idea, author, user_starred_idea], author.name in ^authors)
+    |> where([_idea, author, _topic, _starrer], author.name in ^authors)
   end
 
-  defp maybe_filter_by_user_stars(query, []), do: query
+  defp maybe_filter_by_topics(query, []), do: query
 
-  defp maybe_filter_by_user_stars(query, users_name) do
+  defp maybe_filter_by_topics(query, topics_name) do
+    topics_id =
+      Topic
+      |> where([topic], topic.name in ^topics_name)
+      |> select([topic], topic.id)
+      |> Repo.all()
+
+    query
+    |> where([_idea, _author, topic, _starrer], topic.id in ^topics_id)
+  end
+
+  defp maybe_filter_by_starrer(query, []), do: query
+
+  defp maybe_filter_by_starrer(query, users_name) do
     users_id =
       User
       |> where([user], user.name in ^users_name)
@@ -52,7 +68,7 @@ defmodule IdeePlace.Ideas do
       |> Repo.all()
 
     query
-    |> where([idea, author, user_starred_idea], user_starred_idea.id in ^users_id)
+    |> where([_idea, _author, _topic, starrer], starrer.id in ^users_id)
   end
 
   defp maybe_filter_by_keywords(query, []), do: query

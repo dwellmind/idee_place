@@ -112,7 +112,7 @@ Repo.insert!(%Ideas.Idea{
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 5",
+  title: "Idea title 6",
   description: "Idea description 6",
   author: bob,
   topics: [computing_topic, ruby_topic]

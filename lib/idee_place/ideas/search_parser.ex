@@ -1,5 +1,6 @@
 defmodule IdeePlace.Ideas.SearchParser do
   @authors_regex ~r/@[a-zA-Z]*/
+  @topics_regex ~r/#[a-zA-Z]*/
   @user_stars_regex ~r/![a-zA-Z]*/
 
   @doc """
@@ -18,11 +19,13 @@ defmodule IdeePlace.Ideas.SearchParser do
     words = String.split(search, " ")
 
     {authors, words} = find_authors(words)
+    {topics, words} = find_topics(words)
     {user_stars, words} = find_user_stars(words)
     {keywords, _} = find_keywords(words)
 
     %{
       authors: authors,
+      topics: topics,
       user_stars: user_stars,
       keywords: keywords
     }
@@ -31,6 +34,11 @@ defmodule IdeePlace.Ideas.SearchParser do
   defp find_authors(words) do
     {patterns, rest} = catch_pattern(words, @authors_regex)
     {Enum.map(patterns, &String.trim(&1, "@")), rest}
+  end
+
+  defp find_topics(words) do
+    {patterns, rest} = catch_pattern(words, @topics_regex)
+    {Enum.map(patterns, &String.trim(&1, "#")), rest}
   end
 
   defp find_user_stars(words) do

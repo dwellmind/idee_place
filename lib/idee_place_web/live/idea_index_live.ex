@@ -27,6 +27,7 @@ defmodule IdeePlaceWeb.IdeaIndexLive do
   def handle_event("search", %{"search" => %{"query" => query}}, socket) do
     %{
       authors: authors,
+      topics: topics,
       user_stars: user_stars,
       keywords: keywords
     } = Ideas.SearchParser.parse(query)
@@ -36,6 +37,7 @@ defmodule IdeePlaceWeb.IdeaIndexLive do
         preload: :author,
         filters: [
           authors: authors,
+          topics: topics,
           user_stars: user_stars,
           keywords: keywords
         ]
