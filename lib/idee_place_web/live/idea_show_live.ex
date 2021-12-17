@@ -29,4 +29,20 @@ defmodule IdeePlaceWeb.IdeaShowLive do
 
     {:noreply, assign(socket, idea_is_starred: false)}
   end
+
+  # Helpers
+
+  # NOTE: the use of the `registered_processors` option is a bit tricky
+  def as_html!(markdown) do
+    markdown
+    |> Earmark.as_html!(
+      smartypants: false,
+      registered_processors: [
+        Earmark.TagSpecificProcessors.new(
+          {"a", &Earmark.AstTools.merge_atts_in_node(&1, target: "_blank")}
+        )
+      ]
+    )
+    |> raw()
+  end
 end
