@@ -139,6 +139,153 @@ Repo.insert!(%Ideas.Idea{
   topics: [computing_topic, ruby_topic]
 })
 
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 10",
+  description: "Idea description 10",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 11",
+  description: "Idea description 11",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 12",
+  description: "Idea description 12",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 13",
+  description: "Idea description 13",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 14",
+  description: "Idea description 14",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 15",
+  description: "Idea description 15",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 16",
+  description: "Idea description 16",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 17",
+  description: "Idea description 17",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 18",
+  description: "Idea description 18",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 19",
+  description: "Idea description 19",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 20",
+  description: "Idea description 20",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 21",
+  description: "Idea description 21",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 22",
+  description: "Idea description 22",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 23",
+  description: "Idea description 23",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 24",
+  description: "Idea description 24",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 25",
+  description: "Idea description 25",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 26",
+  description: "Idea description 26",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 27",
+  description: "Idea description 27",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 28",
+  description: "Idea description 28",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 29",
+  description: "Idea description 29",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Idea title 30",
+  description: "Idea description 30",
+  author: bob,
+  topics: [computing_topic, ruby_topic]
+})
+
 Repo.insert!(%Ideas.UserStarredIdea{
   user: alice,
   idea: idea1
