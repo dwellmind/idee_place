@@ -22,20 +22,34 @@ defmodule IdeePlace.Ideas do
 
   """
   def list_ideas(opts \\ []) do
-    default_opts = [preload: [], filters: [authors: [], topics: [], user_stars: [], keywords: []]]
+    default_opts = [
+      preload: [],
+      filters: [authors: [], topics: [], user_stars: [], keywords: []],
+      page_number: nil,
+      page_size: 10
+    ]
+
     opts = Keyword.merge(default_opts, opts)
 
-    Idea
-    |> join(:left, [idea], author in assoc(idea, :author))
-    |> join(:left, [idea, _author], topics in assoc(idea, :topics))
-    |> join(:left, [idea, _author, _topic], starrer in assoc(idea, :starred_by))
-    |> maybe_filter_by_authors(opts[:filters][:authors])
-    |> maybe_filter_by_topics(opts[:filters][:topics])
-    |> maybe_filter_by_starrer(opts[:filters][:user_stars])
-    |> maybe_filter_by_keywords(opts[:filters][:keywords])
-    |> distinct([idea], idea.id)
-    |> preload(^opts[:preload])
-    |> Repo.all()
+    query =
+      Idea
+      |> join(:left, [idea], author in assoc(idea, :author))
+      |> join(:left, [idea, _author], topics in assoc(idea, :topics))
+      |> join(:left, [idea, _author, _topic], starrer in assoc(idea, :starred_by))
+      |> maybe_filter_by_authors(opts[:filters][:authors])
+      |> maybe_filter_by_topics(opts[:filters][:topics])
+      |> maybe_filter_by_starrer(opts[:filters][:user_stars])
+      |> maybe_filter_by_keywords(opts[:filters][:keywords])
+      |> distinct([idea], idea.id)
+      |> preload(^opts[:preload])
+
+    if opts[:page_number] do
+      query
+      |> Repo.paginate(page: opts[:page_number], page_size: opts[:page_size])
+    else
+      query
+      |> Repo.all()
+    end
   end
 
   defp maybe_filter_by_authors(query, []), do: query

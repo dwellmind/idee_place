@@ -8,7 +8,7 @@
   <%= submit "Search", phx_disable_with: "Searching..." %>
 </form>
 
-<%= if Enum.empty?(@ideas) do %>
+<%= if Enum.empty?(@ideas_page.entries) do %>
   <%= if @query == "" do %>
     <div>No ideas yet.</div>
   <% else %>
@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= for idea <- @ideas do %>
+      <%= for idea <- @ideas_page.entries do %>
         <tr>
           <%= if @current_user do %>
             <td>
@@ -45,4 +45,55 @@
       <% end %>
     </tbody>
   </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="inline-flex -space-x-px list-none">
+      <li>
+        <%= if @ideas_page.page_number > 1 do %>
+          <a
+            href="#"
+            phx-click="previous_page"
+            class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Previous
+          </a>
+        <% else %>
+          <span
+            class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Previous
+          </span>
+        <% end %>
+      </li>
+      <%= for page_index <- 1..@ideas_page.total_pages do %>
+        <li>
+          <a
+            href="#"
+            phx-click="go_to_page"
+            phx-value-page=<%= page_index %>
+            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <%= page_index %>
+          </a>
+        </li>
+      <% end %>
+      <li>
+        <%= if @ideas_page.page_number < @ideas_page.total_pages do %>
+          <a
+            href="#"
+            phx-click="next_page"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+          Next
+          </a>
+        <% else %>
+          <span
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+          </span>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
 <% end %>
