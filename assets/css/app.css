@@ -3,7 +3,11 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
-@import "./phoenix.css";
+/* @import "./phoenix.css"; */
+
+h1 {
+  @apply text-xl font-bold;
+}
 
 /* Alerts and form errors used by phx.new */
 .alert {

@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ["Tenor Sans", "Georgia", "serif"],
-      body: ["Inter", "system-ui", "sans-serif"],
+      body: ["Inter", "system-ui", "sans-serif"]
     },
     colors: {
       primary: {
@@ -34,7 +34,7 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {}
   },
   plugins: []
 }
