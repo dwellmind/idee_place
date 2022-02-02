@@ -102,4 +102,12 @@ defmodule IdeePlaceWeb.Router do
 
     resources "/ideas", IdeaController, only: [:index, :show]
   end
+
+  # About routes
+
+  scope "/about", IdeePlaceWeb do
+    pipe_through [:browser]
+
+    get "/", AboutController, :index
+  end
 end
