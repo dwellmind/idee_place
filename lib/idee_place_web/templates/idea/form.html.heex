@@ -5,13 +5,13 @@
     </div>
   <% end %>
 
-  <%= text_input f, :title, class: "text-xl font-bold w-full m-2 p-1.5 border border-solid border-primary-300 rounded focus:outline-none" %>
+  <%= text_input f, :title, placeholder: "Title…", class: "text-xl font-bold w-full my-2 p-1.5 border border-solid border-primary-300 rounded focus:outline-none" %>
   <%= error_tag f, :title %>
 
-  <%= textarea f, :description, rows: 20, class: "h-64 form-control h-full block w-full p-1.5 m-2 text-base font-normal text-primary-700 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+  <%= textarea f, :description, placeholder: "Description (markdown)…", rows: 20, class: "h-64 form-control h-full block w-full p-1.5 m-2 text-base font-normal text-primary-700 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
   <%= error_tag f, :description %>
 
   <div>
-    <%= submit "Save", class: "float-right shadow bg-primary-400 hover:bg-accent-400 inline focus:shadow-outline focus:outline-none text-primary-900 font-bold py-0.5 px-2 mx-0 rounded" %>
+    <%= submit "Save", class: "float-right shadow bg-primary-400 hover:bg-accent-400 inline focus:shadow-outline focus:outline-none text-primary-900 font-bold py-0.5 px-2 my-1 mx-0 rounded" %>
   </div>
 </.form>
