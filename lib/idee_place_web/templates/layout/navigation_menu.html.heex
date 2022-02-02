@@ -1,7 +1,5 @@
-
-
 <nav class="flex justify-between p-4 mx-auto bg-white">
-  <div class="hidden space-x-8 md:flex">
+  <div class="hidden space-x-8 sm:flex">
     <%= link "Ideas", to: Routes.idea_path(@conn, :index), class: "font-semibold hover:text-primary-700" %>
     <span>
       <%= if @current_user do %>
@@ -15,7 +13,7 @@
       <% end %>
     </span>
   </div>
-  <div class="flex md:hidden">
+  <div class="flex sm:hidden">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="w-6 h-6"

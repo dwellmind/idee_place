@@ -5,8 +5,20 @@
 /* This file is for your main application CSS */
 /* @import "./phoenix.css"; */
 
+body {
+  min-height: 100vh;
+}
+
 h1 {
   @apply text-xl font-bold;
+}
+
+h2 {
+  @apply text-lg font-bold;
+}
+
+h3 {
+  @apply text-base font-bold;
 }
 
 /* Alerts and form errors used by phx.new */

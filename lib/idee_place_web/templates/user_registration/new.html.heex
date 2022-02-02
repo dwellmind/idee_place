@@ -1,30 +1,36 @@
-<h1>Register</h1>
+<h1>Registration</h1>
 
-<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class: "w-full max-w-sm">
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name, required: true %>
-  <%= error_tag f, :name %>
+  <div class="pt-2">
+    <%= label f, :name, class: "form-label inline-block mb-2 text-primary-700" %>
+    <%= text_input f, :name, required: true, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-primary-800 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-primary-900 focus:bg-white focus:border-accent-600 focus:outline-none" %>
+    <%= error_tag f, :name %>
+  </div>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
+  <div class="pt-2">
+    <%= label f, :email, class: "form-label inline-block mb-2 text-primary-700" %>
+    <%= email_input f, :email, required: true, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-primary-800 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-primary-900 focus:bg-white focus:border-accent-600 focus:outline-none" %>
+    <%= error_tag f, :email %>
+  </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+  <div class="pt-4">
+    <%= label f, :password, class: "form-label inline-block mb-2 text-primary-700" %>
+    <%= password_input f, :password, required: true, class: "form-control block w-full px-3 py-1.5 text-base font-normal text-primary-800 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-primary-900 focus:bg-white focus:border-accent-600 focus:outline-none" %>
+    <%= error_tag f, :password %>
+  </div>
 
-  <div>
-    <%= submit "Register" %>
+  <div class="pt-4">
+    <%= submit "Register", class: "shadow bg-primary-400 hover:bg-accent-400 focus:shadow-outline focus:outline-none text-primary-900 font-bold py-0.5 px-2 rounded" %>
   </div>
 </.form>
 
-<p>
+<p class="text-primary-500">
   <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
   <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
 </p>
