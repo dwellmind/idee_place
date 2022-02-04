@@ -7,9 +7,7 @@ defmodule IdeePlaceWeb.IdeaController do
   import Phoenix.LiveView.Controller, only: [live_render: 3]
 
   def index(conn, _param) do
-    live_render(conn, IdeePlaceWeb.IdeaIndexLive,
-      session: %{"current_user" => conn.assigns.current_user}
-    )
+    live_render(conn, IdeePlaceWeb.IdeaLive.Index, [])
   end
 
   def new(conn, _params) do
@@ -34,9 +32,7 @@ defmodule IdeePlaceWeb.IdeaController do
   end
 
   def show(conn, %{"id" => id}) do
-    live_render(conn, IdeePlaceWeb.IdeaShowLive,
-      session: %{"current_user" => conn.assigns.current_user, "idea_id" => id}
-    )
+    live_render(conn, IdeePlaceWeb.IdeaLive.Show, session: %{"idea_id" => id})
   end
 
   def edit(conn, %{"id" => id}) do

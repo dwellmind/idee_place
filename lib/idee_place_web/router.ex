@@ -17,12 +17,6 @@ defmodule IdeePlaceWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", IdeePlaceWeb do
-    pipe_through :browser
-
-    get "/", IdeaController, :index
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", IdeePlaceWeb do
   #   pipe_through :api
@@ -56,6 +50,36 @@ defmodule IdeePlaceWeb.Router do
     end
   end
 
+  # About routes
+
+  scope "/", IdeePlaceWeb do
+    pipe_through [:browser]
+
+    get "/", AboutController, :index
+  end
+
+  # Idea routes
+
+  scope "/ideas", IdeePlaceWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/", IdeaController, except: [:index, :show]
+  end
+
+  scope "/ideas", IdeePlaceWeb do
+    pipe_through [:browser]
+
+    resources "/", IdeaController, only: [:index, :show]
+  end
+
+  # Topic routes
+
+  scope "/topics", IdeePlaceWeb do
+    pipe_through [:browser]
+
+    get "/", TopicController, :index
+  end
+
   ## Authentication routes
 
   scope "/", IdeePlaceWeb do
@@ -87,27 +111,5 @@ defmodule IdeePlaceWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
-  end
-
-  # Idea routes
-
-  scope "/", IdeePlaceWeb do
-    pipe_through [:browser, :require_authenticated_user]
-
-    resources "/ideas", IdeaController, except: [:index, :show]
-  end
-
-  scope "/", IdeePlaceWeb do
-    pipe_through [:browser]
-
-    resources "/ideas", IdeaController, only: [:index, :show]
-  end
-
-  # About routes
-
-  scope "/about", IdeePlaceWeb do
-    pipe_through [:browser]
-
-    get "/", AboutController, :index
   end
 end

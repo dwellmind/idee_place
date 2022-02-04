@@ -1,17 +1,19 @@
-defmodule IdeePlaceWeb.IdeaShowLive do
+defmodule IdeePlaceWeb.IdeaLive.Show do
   use IdeePlaceWeb, :live_view
 
   alias IdeePlace.Ideas
 
-  def mount(_params, %{"current_user" => current_user, "idea_id" => idea_id} = _session, socket) do
+  on_mount IdeePlaceWeb.UserLiveAuth
+
+  def mount(_params, %{"idea_id" => idea_id} = _session, socket) do
     idea = Ideas.get_idea!(idea_id, preload: [:author, :topics])
-    idea_is_starred = Ideas.idea_is_starred_by(idea.id, current_user)
+    idea_is_starred = Ideas.idea_is_starred_by(idea.id, socket.assigns.current_user)
 
     {
       :ok,
       assign(
         socket,
-        current_user: current_user,
+        current_user: socket.assigns.current_user,
         idea: idea,
         idea_is_starred: idea_is_starred
       )

@@ -2,7 +2,7 @@
   <div class="hidden space-x-8 sm:flex">
     <%= link "New idea", to: Routes.idea_path(@conn, :new), class: "font-semibold hover:text-primary-700" %>
     <%= link "Ideas", to: Routes.idea_path(@conn, :index), class: "font-semibold hover:text-primary-700" %>
-    <%= link "About", to: Routes.about_path(@conn, :index), class: "font-semibold hover:text-primary-700" %>
+    <%= link "Topics", to: Routes.topic_path(@conn, :index), class: "font-semibold hover:text-primary-700" %>
     <span>
       <%= if @current_user do %>
         <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "hover:underline" %>

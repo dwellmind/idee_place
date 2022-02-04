@@ -1,0 +1,92 @@
+<div class="flex">
+  <h1 class="flex-1">Topics</h1>
+
+  <form id="topics-search" phx-submit="search">
+    <%= text_input :search, :query,
+        value: @query,
+        placeholder: "Search...",
+        autofocus: true,
+        class: "form-control block w-full px-1 py-0.5 text-base font-normal text-primary-700 bg-white bg-clip-padding border border-solid border-primary-500 rounded focus:text-primary-800 focus:bg-white focus:border-accent-600 focus:outline-none" %>
+  </form>
+</div>
+
+<div class="py-4">
+  <%= if Enum.empty?(@topics_page.entries) do %>
+    <%= if @query == "" do %>
+      <div class="py-4">No topics yet.</div>
+    <% else %>
+      <div class="py-4">The query does not match any topics.</div>
+    <% end %>
+  <% else %>
+    <table class="min-w-full leading-normal shadow rounded-lg">
+      <thead class="bg-primary-100 shadow-md">
+        <tr>
+          <th class="px-5 py-3 border-b-2 border-primary-500 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for topic <- @topics_page.entries do %>
+          <tr>
+            <td class="px-2 py2 border-b border-primary-200 bg-white text-sm w-4/5">
+              <div class="font-bold text-accent-400">#<%= topic.name %></div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <nav class="grid place-items-center pt-4" aria-label="Page navigation example">
+      <ul class="inline-flex -space-x-px list-none bg-primary-100">
+        <li>
+          <%= if @topics_page.page_number > 1 do %>
+            <a
+              href="#"
+              phx-click="previous_page"
+              phx-value-query={@query}
+              class="py-1 px-2 ml-0 leading-tight text-primary-800 bg-white rounded-l-lg border border-primary-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Previous
+            </a>
+          <% else %>
+            <span
+              class="py-1 px-2 ml-0 leading-tight text-primary-400 bg-white rounded-l-lg border border-primary-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Previous
+            </span>
+          <% end %>
+        </li>
+        <%= for page_index <- 1..@topics_page.total_pages do %>
+          <li>
+            <a
+              href="#"
+              phx-click="go_to_page"
+              phx-value-page={page_index}
+              phx-value-query={@query}
+              class="py-1 px-2 leading-tight text-primary-800 bg-white border border-primary-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              <%= page_index %>
+            </a>
+          </li>
+        <% end %>
+        <li>
+          <%= if @topics_page.page_number < @topics_page.total_pages do %>
+            <a
+              href="#"
+              phx-click="next_page"
+              phx-value-query={@query}
+              class="py-1 px-2 leading-tight text-primary-800 bg-white rounded-r-lg border border-primary-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+            Next
+            </a>
+          <% else %>
+            <span
+              class="py-1 px-2 leading-tight text-primary-400 bg-white rounded-r-lg border border-primary-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Next
+            </span>
+           <% end %>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
+</div>

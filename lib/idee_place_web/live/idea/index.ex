@@ -1,16 +1,18 @@
-defmodule IdeePlaceWeb.IdeaIndexLive do
+defmodule IdeePlaceWeb.IdeaLive.Index do
   use IdeePlaceWeb, :live_view
 
   alias IdeePlace.Ideas
 
-  def mount(_params, %{"current_user" => current_user, "query" => query}, socket) do
+  on_mount IdeePlaceWeb.UserLiveAuth
+
+  def mount(_params, %{"query" => query}, socket) do
     ideas_page = Ideas.list_ideas(preload: :author, page_number: 1)
-    starred_ideas_id = Ideas.list_starred_ideas_id_for(current_user)
+    starred_ideas_id = Ideas.list_starred_ideas_id_for(socket.assigns.current_user)
 
     {
       :ok,
       assign(socket, [
-        current_user: current_user,
+        current_user: socket.assigns.current_user,
         ideas_page: ideas_page,
         starred_ideas_id: starred_ideas_id,
         query: query
@@ -18,8 +20,8 @@ defmodule IdeePlaceWeb.IdeaIndexLive do
     }
   end
 
-  def mount(params, %{"current_user" => current_user}, socket) do
-    mount(params, %{"current_user" => current_user, "query" => ""}, socket)
+  def mount(params, _session, socket) do
+    mount(params, %{"query" => ""}, socket)
   end
 
   def handle_event("search", %{"search" => %{"query" => query}}, socket) do

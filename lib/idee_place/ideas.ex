@@ -289,13 +289,44 @@ defmodule IdeePlace.Ideas do
 
   """
   def list_topics(opts \\ []) do
-    default_opts = [preload: []]
+    default_opts = [
+      preload: [],
+      page_number: nil,
+      page_size: 10
+    ]
+
     opts = Keyword.merge(default_opts, opts)
 
-    Repo.all(
+    query =
       from Topic,
-        preload: ^opts[:preload]
-    )
+      preload: ^opts[:preload]
+
+    if opts[:page_number] do
+      query
+      |> Repo.paginate(page: opts[:page_number], page_size: opts[:page_size])
+    else
+      query
+      |> Repo.all()
+    end
+  end
+
+  @doc """
+  Get starred topics ID for a user.
+  """
+  def list_starred_topics_id_for(user)
+
+  def list_starred_topics_id_for(nil), do: nil
+
+  def list_starred_topics_id_for(%User{} = user) do
+    list_starred_topics_id_for(user.id)
+  end
+
+  def list_starred_topics_id_for(user_id) do
+    Topic
+    |> join(:left, [topic], user_starred_topic in assoc(topic, :starred_by))
+    |> where([_topic, user], user.id == ^user_id)
+    |> select([topic], topic.id)
+    |> Repo.all()
   end
 
   @doc """
