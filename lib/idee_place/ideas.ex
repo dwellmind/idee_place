@@ -36,10 +36,10 @@ defmodule IdeePlace.Ideas do
       |> join(:left, [idea], author in assoc(idea, :author))
       |> join(:left, [idea, _author], topics in assoc(idea, :topics))
       |> join(:left, [idea, _author, _topic], starrer in assoc(idea, :starred_by))
-      |> maybe_filter_by_authors(opts[:filters][:authors])
-      |> maybe_filter_by_topics(opts[:filters][:topics])
-      |> maybe_filter_by_starrer(opts[:filters][:user_stars])
-      |> maybe_filter_by_keywords(opts[:filters][:keywords])
+      |> maybe_filter_ideas_by_authors(opts[:filters][:authors])
+      |> maybe_filter_ideas_by_topics(opts[:filters][:topics])
+      |> maybe_filter_ideas_by_starrer(opts[:filters][:user_stars])
+      |> maybe_filter_ideas_by_keywords(opts[:filters][:keywords])
       |> distinct([idea], idea.id)
       |> preload(^opts[:preload])
 
@@ -52,16 +52,16 @@ defmodule IdeePlace.Ideas do
     end
   end
 
-  defp maybe_filter_by_authors(query, []), do: query
+  defp maybe_filter_ideas_by_authors(query, []), do: query
 
-  defp maybe_filter_by_authors(query, authors) do
+  defp maybe_filter_ideas_by_authors(query, authors) do
     query
     |> where([_idea, author, _topic, _starrer], author.name in ^authors)
   end
 
-  defp maybe_filter_by_topics(query, []), do: query
+  defp maybe_filter_ideas_by_topics(query, []), do: query
 
-  defp maybe_filter_by_topics(query, topics_name) do
+  defp maybe_filter_ideas_by_topics(query, topics_name) do
     topics_id =
       Topic
       |> where([topic], topic.name in ^topics_name)
@@ -76,9 +76,9 @@ defmodule IdeePlace.Ideas do
     |> having([idea, _author, _topic, _starrer], count(idea.id) == ^topics_count)
   end
 
-  defp maybe_filter_by_starrer(query, []), do: query
+  defp maybe_filter_ideas_by_starrer(query, []), do: query
 
-  defp maybe_filter_by_starrer(query, users_name) do
+  defp maybe_filter_ideas_by_starrer(query, users_name) do
     users_id =
       User
       |> where([user], user.name in ^users_name)
@@ -89,9 +89,9 @@ defmodule IdeePlace.Ideas do
     |> where([_idea, _author, _topic, starrer], starrer.id in ^users_id)
   end
 
-  defp maybe_filter_by_keywords(query, []), do: query
+  defp maybe_filter_ideas_by_keywords(query, []), do: query
 
-  defp maybe_filter_by_keywords(query, keywords) do
+  defp maybe_filter_ideas_by_keywords(query, keywords) do
     keywords_string = keywords |> Enum.join("%") |> surround("%")
 
     query
@@ -291,6 +291,7 @@ defmodule IdeePlace.Ideas do
   def list_topics(opts \\ []) do
     default_opts = [
       preload: [],
+      filters: [keywords: ""],
       page_number: nil,
       page_size: 10
     ]
@@ -298,8 +299,9 @@ defmodule IdeePlace.Ideas do
     opts = Keyword.merge(default_opts, opts)
 
     query =
-      from Topic,
-      preload: ^opts[:preload]
+      Topic
+      |> maybe_filter_topics_by_keywords(opts[:filters][:keywords])
+      |> preload(^opts[:preload])
 
     if opts[:page_number] do
       query
@@ -308,6 +310,22 @@ defmodule IdeePlace.Ideas do
       query
       |> Repo.all()
     end
+  end
+
+  defp maybe_filter_topics_by_keywords(query, ""), do: query
+
+  defp maybe_filter_topics_by_keywords(query, keywords) do
+    keywords_string =
+      keywords
+      |> String.split(" ")
+      |> Enum.join("%")
+      |> surround("%")
+
+    query
+    |> where(
+      [topic],
+      like(topic.name, ^keywords_string)
+    )
   end
 
   @doc """

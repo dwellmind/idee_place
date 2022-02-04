@@ -25,6 +25,8 @@ defmodule IdeePlaceWeb.TopicLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"query" => query}}, socket) do
+    IO.inspect(query, label: "QUERY")
+
     topics_page = get_topics_page(query, 1)
     starred_topics_id = Ideas.list_starred_topics_id_for(socket.assigns.current_user)
 
