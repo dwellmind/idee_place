@@ -97,7 +97,7 @@ defmodule IdeePlace.Ideas do
     query
     |> where(
       [idea, author],
-      like(idea.title, ^keywords_string) or like(idea.description, ^keywords_string)
+      ilike(idea.title, ^keywords_string) or ilike(idea.description, ^keywords_string)
     )
   end
 
@@ -324,7 +324,7 @@ defmodule IdeePlace.Ideas do
     query
     |> where(
       [topic],
-      like(topic.name, ^keywords_string)
+      ilike(topic.name, ^keywords_string)
     )
   end
 
