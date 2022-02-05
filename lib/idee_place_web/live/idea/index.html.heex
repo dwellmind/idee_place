@@ -1,6 +1,8 @@
 <div class="flex">
   <h1 class="flex-1">Ideas</h1>
 
+  <%= link "+", to: Routes.idea_path(@socket, :new), class: "shadow bg-primary-400 hover:bg-accent-400 focus:shadow-outline focus:outline-none text-primary-900 font-bold py-0.5 px-2.5 mx-2 rounded" %>
+
   <form id="ideas-search" phx-submit="search">
     <%= text_input :search, :query,
         value: @query,
