@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ["Tenor Sans", "Georgia", "serif"],
-      body: ["Inter", "system-ui", "sans-serif"]
+      body: ["Inter", "system-ui", "sans-serif"],
+      mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
     },
     colors: {
       primary: {
