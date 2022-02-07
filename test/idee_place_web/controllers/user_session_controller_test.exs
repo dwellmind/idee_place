@@ -1,13 +1,14 @@
 defmodule IdeePlaceWeb.UserSessionControllerTest do
   use IdeePlaceWeb.ConnCase, async: true
 
+  alias IdeePlace.Accounts
   import IdeePlace.AccountsFixtures
 
   setup do
     %{user: user_fixture()}
   end
 
-  describe "GET /users/log_in" do
+  describe "GET /accounts/log_in" do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
@@ -22,20 +23,23 @@ defmodule IdeePlaceWeb.UserSessionControllerTest do
     end
   end
 
-  describe "POST /users/log_in" do
+  describe "POST /accounts/log_in" do
     test "logs the user in", %{conn: conn, user: user} do
       conn =
         post(conn, Routes.user_session_path(conn, :create), %{
           "user" => %{"email" => user.email, "password" => valid_user_password()}
         })
 
-      assert get_session(conn, :user_token)
+      user_token = get_session(conn, :user_token)
+      assert user_token
+
+      user_logged = Accounts.get_user_by_session_token(user_token)
+      assert user_logged.email == user.email
       assert redirected_to(conn) == "/"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ user.email
       assert response =~ ">Settings"
       assert response =~ ">Log out"
     end
@@ -80,7 +84,7 @@ defmodule IdeePlaceWeb.UserSessionControllerTest do
     end
   end
 
-  describe "DELETE /users/log_out" do
+  describe "DELETE /accounts/log_out" do
     test "logs the user out", %{conn: conn, user: user} do
       conn = conn |> log_in_user(user) |> delete(Routes.user_session_path(conn, :delete))
       assert redirected_to(conn) == "/"

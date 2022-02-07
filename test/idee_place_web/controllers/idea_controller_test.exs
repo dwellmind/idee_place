@@ -21,7 +21,8 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
   describe "index" do
     test "lists all ideas", %{conn: conn} do
       conn = get(conn, Routes.idea_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Ideas"
+      assert html_response(conn, 200) =~ "Ideas"
+      assert html_response(conn, 200) =~ "search_query"
     end
   end
 
@@ -45,7 +46,9 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
       assert redirected_to(conn) == Routes.idea_path(conn, :show, id)
 
       conn = get(conn, Routes.idea_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Idea"
+      assert html_response(conn, 200) =~ "id=\"idea-title\""
+      assert html_response(conn, 200) =~ "id=\"idea-topics\""
+      assert html_response(conn, 200) =~ "id=\"idea-description\""
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -60,7 +63,8 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
 
     test "renders form for editing chosen idea", %{conn: conn, idea: idea} do
       conn = get(conn, Routes.idea_path(conn, :edit, idea))
-      assert html_response(conn, 200) =~ "Edit Idea"
+      assert html_response(conn, 200) =~ "id=\"idea_title\""
+      assert html_response(conn, 200) =~ "id=\"idea_description\""
     end
   end
 
@@ -78,7 +82,8 @@ defmodule IdeePlaceWeb.IdeaControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, idea: idea} do
       conn = put(conn, Routes.idea_path(conn, :update, idea), idea: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Idea"
+      assert html_response(conn, 200) =~ "id=\"idea_title\""
+      assert html_response(conn, 200) =~ "id=\"idea_description\""
     end
   end
 

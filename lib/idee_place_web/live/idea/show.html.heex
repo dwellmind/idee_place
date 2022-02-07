@@ -1,5 +1,5 @@
 <div class="flex justify-between">
-  <h1><%= @idea.title %></h1>
+  <h1 id="idea-title"><%= @idea.title %></h1>
 
   <div>
     <%= if @current_user do %>
@@ -22,12 +22,12 @@
   </div>
 </div>
 
-<h2 class="text-accent-400">
+<h2 id="idea-topics" class="text-accent-400">
   <%= for topic <- @idea.topics do %>
     <a href="#"><%= "##{topic.name}" %></a>
   <% end %>
 </h2>
 
-<div class="p-4 border-l border-primary-200">
+<div id="idea-description" class="p-4 border-l border-primary-200">
   <%= as_html!(@idea.description) %>
 </div>

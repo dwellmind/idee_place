@@ -1,13 +1,14 @@
 defmodule IdeePlaceWeb.UserRegistrationControllerTest do
   use IdeePlaceWeb.ConnCase, async: true
 
+  alias IdeePlace.Accounts
   import IdeePlace.AccountsFixtures
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
+      assert response =~ "<h1>Registration</h1>"
       assert response =~ ">Log in"
       assert response =~ ">Register"
     end
@@ -28,13 +29,17 @@ defmodule IdeePlaceWeb.UserRegistrationControllerTest do
           "user" => valid_user_attributes(email: email)
         })
 
-      assert get_session(conn, :user_token)
+      user_token = get_session(conn, :user_token)
+      assert user_token
+
+      user = Accounts.get_user_by_session_token(user_token)
+      assert user.email == email
       assert redirected_to(conn) == "/"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ email
+      # assert response =~ email
       assert response =~ ">Settings"
       assert response =~ ">Log out"
     end
@@ -46,7 +51,7 @@ defmodule IdeePlaceWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
+      assert response =~ "<h1>Registration</h1>"
       assert response =~ "must be between 3 and 40 characters"
       assert response =~ "must have the @ sign and no spaces"
       assert response =~ "should be at least 8 character"
