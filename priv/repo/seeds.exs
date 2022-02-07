@@ -16,14 +16,29 @@ alias IdeePlace.{
   Ideas
 }
 
-crazy_topic =
+gardening_topic =
   Repo.insert!(%Ideas.Topic{
-    name: "crazy"
+    name: "gardening"
   })
 
 computing_topic =
   Repo.insert!(%Ideas.Topic{
     name: "computing"
+  })
+
+data_sciences_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "data_science"
+  })
+
+web_development_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "web_development"
+  })
+
+devops_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "devops"
   })
 
 elixir_topic =
@@ -36,9 +51,59 @@ ruby_topic =
     name: "ruby"
   })
 
-survival_topic =
+rust_topic =
   Repo.insert!(%Ideas.Topic{
-    name: "survival"
+    name: "rust"
+  })
+
+javascript_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "javascript"
+  })
+
+festival_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "festival"
+  })
+
+music_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "music"
+  })
+
+djing_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "djing"
+  })
+
+rock_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "rock"
+  })
+
+hiphop_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "hiphop"
+  })
+
+techno_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "techno"
+  })
+
+boardgames_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "boardgames"
+  })
+
+chess_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "chess"
+  })
+
+tarot_topic =
+  Repo.insert!(%Ideas.Topic{
+    name: "tarot"
   })
 
 alice =
@@ -47,7 +112,7 @@ alice =
     email: "alice@mail.net",
     # "password"
     hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam",
-    starred_topics: [computing_topic, elixir_topic]
+    starred_topics: [computing_topic, ruby_topic, javascript_topic, boardgames_topic, chess_topic, music_topic, rock_topic]
   })
 
 bob =
@@ -56,234 +121,215 @@ bob =
     email: "bob@mail.net",
     # "password"
     hashed_password: "$2b$12$jlVJ.lksNp0eGMKYevxy3ewSNOuUBpFM/KE4tK4SOX9OoUe.gp5l2",
-    starred_topics: [computing_topic, crazy_topic]
+    starred_topics: [computing_topic, elixir_topic, rust_topic, data_sciences_topic, devops_topic, tarot_topic, music_topic]
+  })
+
+carl =
+  Repo.insert!(%Accounts.User{
+    name: "Carl",
+    email: "carl@mail.net",
+    # "password"
+    hashed_password: "$2b$12$jIGp.Jl0N5eGUFiTuqFHkeudSL8LGW1xz0QyiyHkyazYo2JbqIZam",
+    starred_topics: [gardening_topic, chess_topic, music_topic, hiphop_topic, techno_topic, djing_topic]
   })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Create a new world",
-  description: "The goal is to create a new world without bad humans.",
+  title: "The Rennes Boardgames festival",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: alice,
-  topics: [crazy_topic, survival_topic]
+  topics: [boardgames_topic, festival_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Thinking about my favorite programming language",
-  description: "I should think about… wait a minute. It's Elixir of course!",
-  author: alice,
-  topics: [computing_topic, elixir_topic]
+  title: "Index all the nowadays devops good practices",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: bob,
+  topics: [computing_topic, devops_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "The Nantes monthly DJ meetup",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [music_topic, djing_topic]
 })
 
 idea1 =
   Repo.insert!(%Ideas.Idea{
-    title: "Idea title 1",
-    description: "Idea description 1",
-    author: bob,
+    title: "Id velit ut tortor pretium viverra suspendisse",
+    description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+    author: alice,
     topics: [computing_topic, elixir_topic]
   })
 
 idea2 =
   Repo.insert!(%Ideas.Idea{
-    title: "Idea title 2",
-    description: "Idea description 2",
+    title: "Tellus elementum sagittis",
+    description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
     author: bob,
     topics: [computing_topic, elixir_topic]
   })
 
 idea3 =
   Repo.insert!(%Ideas.Idea{
-    title: "Idea title 3",
-    description: "Idea description 3",
+    title: "Nec nam aliquam sem et tortor consequat id porta",
+    description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
     author: bob,
     topics: [computing_topic, elixir_topic]
   })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 4",
-  description: "Idea description 4",
+  title: "Molestie at elementum",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
   topics: [computing_topic, elixir_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 5",
-  description: "Idea description 5",
+  title: "Elementum eu facilisis sed odio morbi",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
   topics: [computing_topic, elixir_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 6",
-  description: "Idea description 6",
+  title: "Feugiat nibh sed pulvinar proin gravida",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: alice,
+  topics: [computing_topic, ruby_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Et leo duis ut diam",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: bob,
+  topics: [boardgames_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "In metus vulputate eu scelerisque",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [boardgames_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Sapien pellentesque habitant morbi",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: bob,
+  topics: [computing_topic, elixir_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Imperdiet massa tincidunt nun",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [chess_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Tellus integer",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [tarot_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Et netus et malesuada fames ac",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [gardening_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Etiam sit amet nisl",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: bob,
+  topics: [computing_topic, web_development_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Nibh sed pulvinar proin",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
   topics: [computing_topic, ruby_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 7",
-  description: "Idea description 7",
+  title: "Velit scelerisque in dictum non consectetur",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: bob,
+  topics: [music_topic, techno_topic]
+})
+
+Repo.insert!(%Ideas.Idea{
+  title: "Felis eget nunc lobortis",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
   topics: [computing_topic, ruby_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 8",
-  description: "Idea description 8",
+  title: "Odio euismod lacinia at quis risus sed vulputate",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [computing_topic, elixir_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 9",
-  description: "Idea description 9",
+  title: "Ulputate enim nulla",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [computing_topic, ruby_topic, elixir_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 10",
-  description: "Idea description 10",
+  title: "Cursus mattis molestie a iaculis at",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [computing_topic, devops_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 11",
-  description: "Idea description 11",
+  title: "Posuere morbi leo",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [music_topic, hiphop_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 12",
-  description: "Idea description 12",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
+  title: "Feugiat vivamus",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [music_topic, djing_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 13",
-  description: "Idea description 13",
+  title: "Commodo quis",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [music_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 14",
-  description: "Idea description 14",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
+  title: "Habitasse platea",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: alice,
+  topics: [computing_topic, javascript_topic, web_development_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 15",
-  description: "Idea description 15",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
+  title: "Nisl nunc mi ipsum",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
+  author: carl,
+  topics: [gardening_topic]
 })
 
 Repo.insert!(%Ideas.Idea{
-  title: "Idea title 16",
-  description: "Idea description 16",
+  title: "Odio euismod lacinia",
+  description: File.read!(Path.expand("priv/repo/idea_descriptions/idea_description_01.md")),
   author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 17",
-  description: "Idea description 17",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 18",
-  description: "Idea description 18",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 19",
-  description: "Idea description 19",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 20",
-  description: "Idea description 20",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 21",
-  description: "Idea description 21",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 22",
-  description: "Idea description 22",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 23",
-  description: "Idea description 23",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 24",
-  description: "Idea description 24",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 25",
-  description: "Idea description 25",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 26",
-  description: "Idea description 26",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 27",
-  description: "Idea description 27",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 28",
-  description: "Idea description 28",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 29",
-  description: "Idea description 29",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
-})
-
-Repo.insert!(%Ideas.Idea{
-  title: "Idea title 30",
-  description: "Idea description 30",
-  author: bob,
-  topics: [computing_topic, ruby_topic]
+  topics: [computing_topic, data_sciences_topic]
 })
 
 Repo.insert!(%Ideas.UserStarredIdea{
