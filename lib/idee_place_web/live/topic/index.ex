@@ -61,7 +61,7 @@ defmodule IdeePlaceWeb.TopicLive.Index do
   end
 
   def handle_event("next_page", %{"query" => query}, socket) do
-    next_page_number = socket.assigns.ideas_page.page_number + 1
+    next_page_number = socket.assigns.topics_page.page_number + 1
 
     if next_page_number > socket.assigns.topics_page.total_pages do
       raise "No more next page, last page is #{socket.assigns.topics_page.total_pages}."
@@ -83,7 +83,7 @@ defmodule IdeePlaceWeb.TopicLive.Index do
   def handle_event("go_to_page", %{"page" => page_number_string, "query" => query}, socket) do
     page_number = String.to_integer(page_number_string)
 
-    if page_number < 1 or page_number > socket.assigns.ideas_page.total_pages do
+    if page_number < 1 or page_number > socket.assigns.topics_page.total_pages do
       raise "Page not in range (1..#{socket.assigns.topics_page.total_pages})."
     end
 
