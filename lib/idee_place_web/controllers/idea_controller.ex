@@ -36,9 +36,7 @@ defmodule IdeePlaceWeb.IdeaController do
   end
 
   def edit(conn, %{"id" => id}) do
-    idea = Ideas.get_idea!(id)
-    changeset = Ideas.change_idea(idea)
-    render(conn, "edit.html", idea: idea, changeset: changeset)
+    live_render(conn, IdeePlaceWeb.IdeaLive.Edit, session: %{"id" => id})
   end
 
   def update(conn, %{"id" => id, "idea" => idea_params}) do

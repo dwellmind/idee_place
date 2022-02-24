@@ -1,0 +1,24 @@
+<.form let={f} for={@changeset} phx-submit="save">
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= text_input f, :title, value: fetch_field!(@changeset, :title), placeholder: "Title…", class: "text-xl font-bold w-full mb-2 p-1.5 border border-solid border-primary-300 rounded focus:outline-none" %>
+  <%= error_tag f, :title %>
+
+  <.live_component
+    module={IdeePlaceWeb.TopicTokensInputComponent}
+    form={f}
+    id="topics"
+    label_class="bg-accent-100"
+    topics={fetch_field!(@changeset, :topics)}/>
+
+  <%= textarea f, :description, value: fetch_field!(@changeset, :description), placeholder: "Description (markdown)…", rows: 20, spellcheck: false, class: "h-64 form-control h-full block w-full p-1.5 mb-2 text-base font-mono text-primary-700 bg-white bg-clip-padding border border-solid border-primary-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" %>
+  <%= error_tag f, :description %>
+
+  <div>
+    <%= submit "Save", phx_disable_with: "Saving...", class: "float-right shadow bg-primary-400 hover:bg-accent-400 inline focus:shadow-outline focus:outline-none text-primary-900 font-bold py-0.5 px-2 my-1 mx-0 rounded" %>
+  </div>
+</.form>

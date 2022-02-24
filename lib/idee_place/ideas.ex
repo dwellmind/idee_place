@@ -204,13 +204,15 @@ defmodule IdeePlace.Ideas do
 
   """
   def get_idea!(id, opts \\ []) do
-    default_opts = [preload: []]
+    default_opts = [
+      preload: []
+    ]
     opts = Keyword.merge(default_opts, opts)
 
     Repo.one!(
       from idea in Idea,
-        where: idea.id == ^id,
-        preload: ^opts[:preload]
+      where: idea.id == ^id,
+      preload: ^opts[:preload]
     )
   end
 
@@ -373,6 +375,71 @@ defmodule IdeePlace.Ideas do
   end
 
   @doc """
+  Gets a single topic by name.
+
+  Raises `Ecto.NoResultsError` if the Topic does not exist.
+
+  ## Examples
+
+      iex> get_topic_by_name!("elixir")
+      %Idea{}
+
+      iex> get_topic_by_name!("java")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_topic_by_name!(name, opts \\ []) do
+    default_opts = [preload: []]
+    opts = Keyword.merge(default_opts, opts)
+
+    Repo.one!(
+      from topic in Topic,
+        where: topic.name == ^name,
+        preload: ^opts[:preload]
+    )
+  end
+
+  @doc """
+  Gets a single topic by name.
+
+  ## Examples
+
+      iex> get_topic_by_name("elixir")
+      {:ok, %Idea{}}
+
+      iex> get_topic_by_name("java")
+      {:error, Ecto.NoResultsError}
+
+  """
+  def get_topic_by_name(name, opts \\ []) do
+    try do
+      {:ok, get_topic_by_name!(name, opts)}
+    rescue
+      Ecto.NoResultsError -> {:error, Ecto.NoResultsError}
+      _ -> raise "Not handled error"
+    end
+  end
+
+  @doc """
+  Return true if the topic name exists, else false.
+
+  ## Examples
+
+      iex> topic_name_exists?("elixir")
+      true
+
+      iex> topic_name_exists?("java")
+      false
+
+  """
+  def topic_name_exists?(name) do
+    case get_topic_by_name!(name) do
+      {:ok, _idea} -> true
+      _ -> false
+    end
+  end
+
+  @doc """
   Creates a topic.
 
   ## Examples
@@ -388,6 +455,22 @@ defmodule IdeePlace.Ideas do
     %Topic{}
     |> Topic.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates or get an existing topic by name.
+
+  ## Examples
+
+      iex> create_or_get_topic("elixir")
+      %Topic{name: "elixir"}
+
+  """
+  def create_or_get_topic(topic_name) do
+    case get_topic_by_name(topic_name) do
+      {:ok, topic} -> topic
+      _ -> %Topic{name: topic_name}
+    end
   end
 
   @doc """
